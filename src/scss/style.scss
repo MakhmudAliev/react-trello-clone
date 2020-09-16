@@ -1,0 +1,237 @@
+/* 
+  Variables
+  */
+
+$grey1: #ebecf0;
+$main-text-color: #182c4c;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  color: $main-text-color;
+  line-height: 1.4;
+}
+
+
+/*
+    Typography
+  */
+
+h1 {
+  font-size: 1.5em;
+  font-weight: 400;
+  line-height: 1;
+}
+
+/* 
+    Header
+  */
+.header {
+  background-color: #929fb1;
+  color: white;
+  width: 100%;
+  padding: 1em 0;
+  text-align: center;
+  opacity: .8;
+}
+
+.logo {
+  opacity: .8;
+}
+
+.fullpage {
+  background: bottom center no-repeat url(../img/yosemite-bg.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+
+/* 
+    Main 
+    */
+
+.container {
+  padding: 1em 1em 0 1em;
+  // max-height: 98vh;
+  height: 98vh;
+  // border: 1px solid red;
+}
+
+.board-name {
+  color: white;
+  text-shadow: 1px 1px 10px gray;
+}
+
+.row {
+  display: flex;
+  margin-top: 1em;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+
+}
+
+/*
+    Columns
+    */
+
+.column {
+  flex: 0 0 auto;
+  background-color: $grey1;
+  border-radius: 4px;
+  margin-right: 1em;
+  padding: 0.5em;
+
+  &-body {
+    overflow-y: auto;
+    max-height: calc(100vh - 220px);
+  }
+
+  &-header {
+    color: #182c4c;
+    margin: .25em .75em;
+    font-weight: 700;
+    // letter-spacing: .5px;
+    // text-transform: uppercase;
+  }
+
+}
+
+/*
+    Cards
+    */
+
+.card {
+  background-color: #fff;
+  padding: .5em .5em .5em .5em;
+  margin: .75em .25em;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  border-bottom: 1px solid #b3b9c4;
+  max-width: 280px;
+  width: 280px;
+
+  &-priority {
+    display: flex;
+  }
+
+  &-info {
+    display: flex;
+    margin-top: .5em;
+    align-items: center;
+    font-size: 0.8rem;
+
+
+    &__due-date {
+      display: inline-block;
+      background-color: #65bc55;
+      padding: 0.25em 1em .25em .75em;
+      border-radius: 4px;
+      margin-right: .75em;
+      color: white;
+
+      i {
+        margin-right: .25em;
+      }
+    }
+
+    &__checklist {
+      i {
+        margin-right: 0.25em;
+        color: #616d81;
+      }
+    }
+  }
+}
+
+.priority-green,
+.priority-orange,
+.priority-red {
+  width: 40px;
+  border-radius: 5px;
+  height: 8px;
+  margin: 0.25em 0.15em;
+}
+
+.priority-orange {
+  background-color: #fd9f31;
+}
+
+.priority-green {
+  background-color: #479438;
+}
+
+.priority-red {
+  background-color: #e95b4c;
+}
+
+.due-date-red {
+  background-color: #ea958a;
+}
+
+/* 
+    Buttons 
+    */
+
+.btn {
+  border: 0;
+  padding: .5em .75em;
+  cursor: pointer;
+  transition: all 250ms ease-in-out;
+  font-size: 1rem;
+  border-radius: 4px;
+  margin-left: .25em;
+  color: #5f6d83;
+
+  i {
+    margin-right: .25em;
+  }
+
+  &:hover,
+  &:focus {
+    background-color: #d9dbe2;
+    color: $main-text-color;
+    outline: none;
+  }
+}
+
+.add-list-btn {
+  min-width: 220px;
+  text-align: left;
+}
+
+.add-btn-green {
+  background-color: #5dab4a;
+  color: white;
+}
+
+.add-btn-green:hover,
+.add-btn-green:focus {
+  background-color: #5dab4a;
+  color: white;
+  opacity: .9;
+}
+
+/* 
+    Icons
+    */
+
+.icon-close {
+  margin-left: 0.5em;
+  cursor: pointer;
+}
+
+.new {
+  text-align: center;
+}
