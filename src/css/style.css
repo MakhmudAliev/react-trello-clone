@@ -56,7 +56,7 @@ h1 {
     */
 .container {
   padding: 1em 1em 0 1em;
-  height: 98vh;
+  height: 90vh;
 }
 
 .board-name {
@@ -217,15 +217,29 @@ h1 {
   opacity: .9;
 }
 
+.add-card-textarea {
+  display: block;
+  width: 97%;
+  height: 70px;
+  margin: .5em 2em .5em .25em;
+  padding: .5em;
+  border-radius: 4px;
+  border: 0;
+  border-bottom: 1px solid #b3b9c4;
+  font-family: 'Roboto', sans-serif;
+  color: #182c4c;
+}
+
+.add-card-textarea:focus,
+.add-card-textarea:active {
+  outline: none;
+}
+
 /* 
     Icons
     */
 .icon-close {
   margin-left: 0.5em;
   cursor: pointer;
-}
-
-.new {
-  text-align: center;
 }
 /*# sourceMappingURL=style.css.map */
