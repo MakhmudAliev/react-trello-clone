@@ -1,6 +1,6 @@
-export interface IList {
-	id: number;
-	title: string;
+export interface IColumn {
+	id?: number;
+	title?: string;
 }
 
 export interface ICard {

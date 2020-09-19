@@ -1,23 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Card } from './Card';
-// import { IList } from '../interface';
 import AddNewTask from './AddNewTask';
 import { connect } from 'react-redux';
 import { ICard } from '../interface';
+import { AnyAction, Dispatch } from 'redux';
 
 import { Action, addCard } from '../redux/actions/cardActions';
 import { CardsState } from '../redux/reducers/cardReducer';
 
 interface ColumnProps {
 	cards?: ICard[];
-	addCard?: (newTask: ICard) => Action;
+	addCard?: (newCard: ICard) => Action;
 }
 
 export const Column: React.FC<ColumnProps> = ({ cards, addCard }) => {
-	// const onAddCard = (title: string) => {
-	// 	console.log(title);
-	// };
-
 	return (
 		<>
 			<div className="column">
@@ -26,10 +22,9 @@ export const Column: React.FC<ColumnProps> = ({ cards, addCard }) => {
 					{cards!.map(card => (
 						<Card card={card} key={card.id} />
 					))}
-					{/* <Card /> */}
 				</div>
 
-				<AddNewTask onAddCard={addCard} />
+				<AddNewTask onAddCard={addCard!} />
 			</div>
 
 			<div className="column">
@@ -47,6 +42,10 @@ const mapStateToProps = (state: CardsState) => {
 	};
 };
 
-const mapDispatchToProps = { addCard };
+const mapDispatchToProps = (dispatch: Dispatch) => {
+	return {
+		addCard: (newCard: ICard) => dispatch(addCard(newCard)) as AnyAction
+	};
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Column);
+export default connect(mapStateToProps, mapDispatchToProps)(Column as any);

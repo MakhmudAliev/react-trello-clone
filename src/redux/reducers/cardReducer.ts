@@ -1,5 +1,5 @@
 import { ADD_CARD } from '../constants';
-import { getCardData, setCardData } from '../../utils';
+import { getCardData } from '../../utils';
 import { ICard } from '../../interface';
 import { Action } from '../actions/cardActions';
 
