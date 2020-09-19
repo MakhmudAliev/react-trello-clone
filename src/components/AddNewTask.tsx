@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { ICard } from '../interface';
+import { Action } from '../redux/actions/cardActions';
 
 interface AddNewTaskProps {
-	onAddCard(title: ICard): Object;
+	onAddCard: (newTask: ICard) => Action;
 }
 
 export const AddNewTask: React.FC<AddNewTaskProps> = ({ onAddCard }) => {
 	const [addFormVisible, setAddFormVisible] = useState<boolean>(false);
-	const [newTask, setNewTask] = useState<string>('');
+	const [newTask, setNewTask] = useState<ICard>({ title: '' });
 
 	const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-		setNewTask(event.target.value);
+		setNewTask({ title: event.target.value });
 	};
 
 	return (
@@ -26,7 +27,7 @@ export const AddNewTask: React.FC<AddNewTaskProps> = ({ onAddCard }) => {
 					<textarea
 						className="add-card-textarea"
 						placeholder="Enter the task"
-						value={newTask}
+						value={newTask.title}
 						onChange={handleInputChange}
 					/>
 					<button className="btn add-btn-green" onClick={() => onAddCard(newTask)}>

@@ -3,7 +3,7 @@ import { getCardData, setCardData } from '../../utils';
 import { ICard } from '../../interface';
 import { Action } from '../actions/cardActions';
 
-interface CardsState {
+export interface CardsState {
 	cards: ICard[];
 }
 
@@ -13,10 +13,9 @@ export default function (state: CardsState = initialState, action: Action) {
 	const { type, payload } = action;
 
 	switch (type) {
-		case 'ADD_CARD': {
-			return { ...state, payload };
+		case ADD_CARD: {
+			return { ...state, cards: [...state.cards, payload] };
 		}
-
 		default:
 			return state;
 	}

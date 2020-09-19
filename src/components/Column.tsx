@@ -5,11 +5,12 @@ import AddNewTask from './AddNewTask';
 import { connect } from 'react-redux';
 import { ICard } from '../interface';
 
-import { addCard } from '../redux/actions/cardActions';
+import { Action, addCard } from '../redux/actions/cardActions';
+import { CardsState } from '../redux/reducers/cardReducer';
 
 interface ColumnProps {
 	cards?: ICard[];
-	addCard?: (newTask: ICard) => Object;
+	addCard?: (newTask: ICard) => Action;
 }
 
 export const Column: React.FC<ColumnProps> = ({ cards, addCard }) => {
@@ -22,7 +23,7 @@ export const Column: React.FC<ColumnProps> = ({ cards, addCard }) => {
 			<div className="column">
 				<div className="column-header">Backlog</div>
 				<div className="column-body">
-					{cards.map(card => (
+					{cards!.map(card => (
 						<Card card={card} key={card.id} />
 					))}
 					{/* <Card /> */}
@@ -40,9 +41,9 @@ export const Column: React.FC<ColumnProps> = ({ cards, addCard }) => {
 	);
 };
 
-const mapStateToProps = (state: ICard[]) => {
+const mapStateToProps = (state: CardsState) => {
 	return {
-		cards: state.cards
+		cards: state.cards // {cards: []}
 	};
 };
 

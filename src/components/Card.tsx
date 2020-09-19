@@ -2,10 +2,10 @@ import React from 'react';
 import { ICard } from '../interface';
 
 interface CardProps {
-	card?: ICard;
+	card: ICard;
 }
 
-export const Card: React.FC<CardProps> = (card: ICard) => {
+export const Card: React.FC<CardProps> = ({card}) => {
 	return (
 		<div className="card">
 			<div className="card-priority">
