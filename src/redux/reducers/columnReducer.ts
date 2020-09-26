@@ -14,6 +14,7 @@ export default function (state: ColumnState = initialState, action: Action) {
 
 	switch (type) {
 		case ADD_COLUMN: {
+			console.log('reducer', payload);
 			return { ...state, columns: [...state.columns, payload] };
 		}
 		default:

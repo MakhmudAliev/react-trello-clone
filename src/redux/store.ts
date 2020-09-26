@@ -9,8 +9,8 @@ export interface AppState {
 }
 
 const initialState: AppState = {
-	CardState: { cards: [] },
-	ColumnState: { columns: [] }
+	CardState: { cards: [{ id: 1, title: 'test', listId: 1 }] },
+	ColumnState: { columns: [{ id: 1, title: 'Backlog' }] }
 };
 
 // Cards = { cards: [{title:"asda"}, {}] }

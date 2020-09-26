@@ -1,16 +1,18 @@
 import React from 'react';
-import { Column } from './components/Column';
+import Column from './components/Column';
 import { AppState } from './redux/store';
 import { connect } from 'react-redux';
 import { IColumn } from './interface';
 import { AnyAction, Dispatch } from 'redux';
-import { addColumn } from './redux/actions/cardActions';
+import { Action, addColumn } from './redux/actions/cardActions';
+import AddNewColumn from './components/AddNewColumn';
 
 interface Props {
-	columns: IColumn[];
+	columns?: IColumn[];
+	addColumn?: (newColumn: IColumn) => Action;
 }
 
-const App: React.FC<Props> = ({ columns }) => {
+const App: React.FC<Props> = ({ columns = [], addColumn }) => {
 	return (
 		<div className="fullpage">
 			<header className="header">
@@ -22,6 +24,8 @@ const App: React.FC<Props> = ({ columns }) => {
 					{columns.map((column, index) => (
 						<Column {...column} key={index} />
 					))}
+
+					<AddNewColumn onAddColumn={addColumn!} />
 				</div>
 			</div>
 		</div>
@@ -36,8 +40,8 @@ const mapStateToProps = (state: AppState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
 	return {
-		addColumn: (newColumn:IColumn) => dispatch(addColumn(newColumn)) as AnyAction
-	}
-}
+		addColumn: (newColumn: IColumn) => dispatch(addColumn(newColumn)) as AnyAction
+	};
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App as any);

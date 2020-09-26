@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { ICard } from '../interface';
 import { Action } from '../redux/actions/cardActions';
 
-interface AddNewTaskProps {
+interface AddNewCardProps {
 	onAddCard: (newTask: ICard) => Action;
 }
 
-export const AddNewTask: React.FC<AddNewTaskProps> = ({ onAddCard }) => {
+export const AddNewCard: React.FC<AddNewCardProps> = ({ onAddCard }) => {
 	const [addFormVisible, setAddFormVisible] = useState<boolean>(false);
 	const [newTask, setNewTask] = useState<ICard>({ title: '' });
 
@@ -42,4 +42,4 @@ export const AddNewTask: React.FC<AddNewTaskProps> = ({ onAddCard }) => {
 	);
 };
 
-export default AddNewTask;
+export default AddNewCard;

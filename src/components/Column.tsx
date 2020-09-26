@@ -1,44 +1,47 @@
 import React from 'react';
 import { Card } from './Card';
-import AddNewTask from './AddNewTask';
+import AddNewCard from './AddNewCard';
 import { connect } from 'react-redux';
 import { ICard } from '../interface';
 import { AnyAction, Dispatch } from 'redux';
 
 import { Action, addCard } from '../redux/actions/cardActions';
 import { CardsState } from '../redux/reducers/cardReducer';
+import { AppState } from '../redux/store';
 
 interface ColumnProps {
 	cards?: ICard[];
 	addCard?: (newCard: ICard) => Action;
+	title?: string;
+	id?: number;
 }
 
-export const Column: React.FC<ColumnProps> = ({ cards, addCard }) => {
+export const Column: React.FC<ColumnProps> = ({ cards = [], addCard, title, id }) => {
+	console.log(cards);
+
+	const columnCards = cards.filter(card => card.listId === id);
+
 	return (
 		<>
 			<div className="column">
-				<div className="column-header">Backlog</div>
+				<div className="column-header">{title}</div>
 				<div className="column-body">
-					{cards!.map(card => (
+					{columnCards!.map(card => (
 						<Card card={card} key={card.id} />
 					))}
 				</div>
 
-				<AddNewTask onAddCard={addCard!} />
-			</div>
-
-			<div className="column">
-				<button className="btn add-list-btn">
-					<i className="fas fa-plus"></i> Add new list
-				</button>
+				<AddNewCard onAddCard={addCard!} />
 			</div>
 		</>
 	);
 };
 
-const mapStateToProps = (state: CardsState) => {
+const mapStateToProps = (state: AppState) => {
+	console.log('state = ', state);
+
 	return {
-		cards: state.cards // {cards: []}
+		cards: state.CardState.cards
 	};
 };
 

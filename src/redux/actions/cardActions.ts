@@ -12,6 +12,7 @@ export const addCard = (newTask: ICard): Action & AnyAction => {
 };
 
 export const addColumn = (newColumn: IColumn): Action & AnyAction => {
+	console.log('add column', newColumn);
 	return {
 		type: ADD_COLUMN,
 		payload: newColumn

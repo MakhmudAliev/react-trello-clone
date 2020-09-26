@@ -230,6 +230,22 @@ h1 {
   color: #182c4c;
 }
 
+.add-column-input {
+  display: block;
+  width: 97%;
+  height: 30px;
+  margin: .5em 2em .5em .25em;
+  padding: .5em;
+  border-radius: 4px;
+  border: 1px solid #b3b9c4;
+  font-family: 'Roboto', sans-serif;
+  color: #182c4c;
+}
+
+.add-column-input:focus, .add-column-input:active {
+  outline: none;
+}
+
 .add-card-textarea:focus,
 .add-card-textarea:active {
   outline: none;
