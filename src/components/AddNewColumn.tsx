@@ -14,6 +14,11 @@ export const AddNewColumn: React.FC<AddNewColumnProps> = ({ onAddColumn }) => {
 		setNewColumn({ title: event.target.value, id: Date.now() });
 	};
 
+	const handleButtonClick = () => {
+		onAddColumn(newColumn);
+		setNewColumn({ title: '' });
+	};
+
 	return (
 		<div className="column">
 			{!addFormVisible ? (
@@ -21,26 +26,20 @@ export const AddNewColumn: React.FC<AddNewColumnProps> = ({ onAddColumn }) => {
 					<i className="fas fa-plus"></i> Add new list
 				</button>
 			) : (
-				<>
+				<div className="add-new-column">
 					<input
 						className="add-column-input"
 						placeholder="Enter new list name"
 						value={newColumn.title}
 						onChange={handleInputChange}
 					/>
-					<button
-						className="btn add-btn-green"
-						onClick={() => {
-							onAddColumn(newColumn);
-							setNewColumn({ title: '' });
-						}}
-					>
+					<button className="btn add-btn-green" onClick={handleButtonClick}>
 						Add new list
 					</button>
 					<span className="icon-close">
 						<i className="fas fa-times" onClick={() => setAddFormVisible(false)}></i>
 					</span>
-				</>
+				</div>
 			)}
 		</div>
 	);

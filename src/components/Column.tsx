@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Card } from './Card';
 import AddNewCard from './AddNewCard';
 import { connect } from 'react-redux';
@@ -6,7 +6,6 @@ import { ICard } from '../interface';
 import { AnyAction, Dispatch } from 'redux';
 
 import { Action, addCard } from '../redux/actions/cardActions';
-import { CardsState } from '../redux/reducers/cardReducer';
 import { AppState } from '../redux/store';
 
 interface ColumnProps {
@@ -17,9 +16,7 @@ interface ColumnProps {
 }
 
 export const Column: React.FC<ColumnProps> = ({ cards = [], addCard, title, id }) => {
-	console.log(cards);
-
-	const columnCards = cards.filter(card => card.listId === id);
+	const columnCards = useMemo(() => cards.filter(card => card.listId === id), [cards, id]);
 
 	return (
 		<>
@@ -31,15 +28,13 @@ export const Column: React.FC<ColumnProps> = ({ cards = [], addCard, title, id }
 					))}
 				</div>
 
-				<AddNewCard onAddCard={addCard!} />
+				<AddNewCard onAddCard={addCard!} listId={id!} />
 			</div>
 		</>
 	);
 };
 
 const mapStateToProps = (state: AppState) => {
-	console.log('state = ', state);
-
 	return {
 		cards: state.CardState.cards
 	};

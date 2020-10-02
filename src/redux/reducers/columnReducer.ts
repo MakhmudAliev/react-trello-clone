@@ -4,18 +4,18 @@ import { IColumn } from '../../interface';
 import { Action } from '../actions/cardActions';
 
 export interface ColumnState {
-	columns: IColumn[];
+	columns?: IColumn[];
 }
 
 const initialState = getCardData() || { columns: [] };
 
-export default function (state: ColumnState = initialState, action: Action) {
-	const { type, payload } = action;
+export default function (state: ColumnState = initialState, action: Action): ColumnState {
+	const { type, payload } = action as Action & { payload: IColumn };
 
 	switch (type) {
 		case ADD_COLUMN: {
 			console.log('reducer', payload);
-			return { ...state, columns: [...state.columns, payload] };
+			return { ...state, columns: [...state.columns!, payload] };
 		}
 		default:
 			return state;

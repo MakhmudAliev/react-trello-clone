@@ -20,6 +20,7 @@ body {
   font-family: 'Roboto', sans-serif;
   color: $main-text-color;
   line-height: 1.4;
+  min-height: 100vh;
 }
 
 
@@ -74,12 +75,12 @@ h1 {
 }
 
 .row {
+  min-height: 100%;
   display: flex;
   margin-top: 1em;
   align-items: flex-start;
   flex-wrap: nowrap;
   overflow-x: auto;
-
 }
 
 /*
@@ -92,6 +93,7 @@ h1 {
   border-radius: 4px;
   margin-right: 1em;
   padding: 0.5em;
+  min-width: 280px;
 
   &-body {
     overflow-y: auto;
@@ -102,8 +104,6 @@ h1 {
     color: #182c4c;
     margin: .25em .75em;
     font-weight: 700;
-    // letter-spacing: .5px;
-    // text-transform: uppercase;
   }
 
 }
@@ -119,8 +119,8 @@ h1 {
   border-radius: 4px;
   font-size: 0.9rem;
   border-bottom: 1px solid #b3b9c4;
-  max-width: 280px;
-  width: 280px;
+  min-width: 280px;
+  // width: 280px;
 
   &-priority {
     display: flex;
@@ -265,4 +265,8 @@ h1 {
 .icon-close {
   margin-left: 0.5em;
   cursor: pointer;
+}
+
+.column-add-form {
+  transition: all 500ms ease-in-out;
 }

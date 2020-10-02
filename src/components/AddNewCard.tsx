@@ -4,14 +4,20 @@ import { Action } from '../redux/actions/cardActions';
 
 interface AddNewCardProps {
 	onAddCard: (newTask: ICard) => Action;
+	listId: number;
 }
 
-export const AddNewCard: React.FC<AddNewCardProps> = ({ onAddCard }) => {
+export const AddNewCard: React.FC<AddNewCardProps> = ({ onAddCard, listId }) => {
 	const [addFormVisible, setAddFormVisible] = useState<boolean>(false);
 	const [newTask, setNewTask] = useState<ICard>({ title: '' });
 
 	const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-		setNewTask({ title: event.target.value });
+		setNewTask({ id: Date.now(), title: event.target.value, listId: listId });
+	};
+
+	const handleButtonClick = () => {
+		onAddCard(newTask);
+		setNewTask({ title: '' });
 	};
 
 	return (
@@ -30,7 +36,7 @@ export const AddNewCard: React.FC<AddNewCardProps> = ({ onAddCard }) => {
 						value={newTask.title}
 						onChange={handleInputChange}
 					/>
-					<button className="btn add-btn-green" onClick={() => onAddCard(newTask)}>
+					<button className="btn add-btn-green" onClick={handleButtonClick}>
 						Add card
 					</button>
 					<span className="icon-close">

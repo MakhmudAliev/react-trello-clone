@@ -13,9 +13,6 @@ const initialState: AppState = {
 	ColumnState: { columns: [{ id: 1, title: 'Backlog' }] }
 };
 
-// Cards = { cards: [{title:"asda"}, {}] }
-// Lists = { lists: [{}, {}] }
-
 export const store = createStore(
 	rootReducer,
 	initialState as any,

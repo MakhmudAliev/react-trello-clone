@@ -12,7 +12,7 @@ interface Props {
 	addColumn?: (newColumn: IColumn) => Action;
 }
 
-const App: React.FC<Props> = ({ columns = [], addColumn }) => {
+const App: React.FC<Props> = ({ columns = [], addColumn }): JSX.Element => {
 	return (
 		<div className="fullpage">
 			<header className="header">
@@ -32,13 +32,13 @@ const App: React.FC<Props> = ({ columns = [], addColumn }) => {
 	);
 };
 
-const mapStateToProps = (state: AppState) => {
+const mapStateToProps = (state: AppState): Props => {
 	return {
 		columns: state.ColumnState.columns
 	};
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch): {addColumn: (newColumn: IColumn) => void} => {
 	return {
 		addColumn: (newColumn: IColumn) => dispatch(addColumn(newColumn)) as AnyAction
 	};

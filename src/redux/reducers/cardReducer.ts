@@ -9,8 +9,8 @@ export interface CardsState {
 
 const initialState = getCardData() || { cards: [] };
 
-export default function (state: CardsState = initialState, action: Action) {
-	const { type, payload } = action;
+export default function (state: CardsState = initialState, action: Action): CardsState {
+	const { type, payload } = action as Action & { payload: ICard };
 
 	switch (type) {
 		case ADD_CARD: {
