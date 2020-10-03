@@ -7,7 +7,7 @@ import { AnyAction, Dispatch } from "redux"
 
 import { Action, addCard } from "../redux/actions/cardActions"
 import { AppState } from "../redux/store"
-import Card from "./Card"
+import Card from "./Сard"
 
 interface ColumnProps {
   cards?: ICard[]
