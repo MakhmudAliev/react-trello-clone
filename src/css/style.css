@@ -262,7 +262,39 @@ h1 {
 }
 
 .column-add-form {
-  -webkit-transition: all 500ms ease-in-out;
-  transition: all 500ms ease-in-out;
+  -webkit-animation-name: fall-down;
+          animation-name: fall-down;
+  -webkit-animation-duration: 250ms;
+          animation-duration: 250ms;
+}
+
+@-webkit-keyframes fall-down {
+  0% {
+    -webkit-transform: translateY(-10%);
+            transform: translateY(-10%);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fall-down {
+  0% {
+    -webkit-transform: translateY(-10%);
+            transform: translateY(-10%);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.invisible {
+  display: none;
 }
 /*# sourceMappingURL=style.css.map */

@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Card } from './Card';
+// import { Card } from './Card';
 import AddNewCard from './AddNewCard';
 import { connect } from 'react-redux';
 import { ICard } from '../interface';
@@ -7,6 +7,7 @@ import { AnyAction, Dispatch } from 'redux';
 
 import { Action, addCard } from '../redux/actions/cardActions';
 import { AppState } from '../redux/store';
+import Card from './card';
 
 interface ColumnProps {
 	cards?: ICard[];
@@ -16,7 +17,7 @@ interface ColumnProps {
 }
 
 export const Column: React.FC<ColumnProps> = ({ cards = [], addCard, title, id }) => {
-	const columnCards = useMemo(() => cards.filter(card => card.listId === id), [cards, id]);
+	const columnCards = useMemo(() => cards.filter(card => card.listId === id), [cards]);
 
 	return (
 		<>

@@ -8,7 +8,7 @@ interface AddNewColumnProps {
 
 export const AddNewColumn: React.FC<AddNewColumnProps> = ({ onAddColumn }) => {
 	const [addFormVisible, setAddFormVisible] = useState<boolean>(false);
-	const [newColumn, setNewColumn] = useState<IColumn>({ title: '' });
+	const [newColumn, setNewColumn] = useState<IColumn>({ id: 0, title: '' });
 
 	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setNewColumn({ title: event.target.value, id: Date.now() });
@@ -16,7 +16,7 @@ export const AddNewColumn: React.FC<AddNewColumnProps> = ({ onAddColumn }) => {
 
 	const handleButtonClick = () => {
 		onAddColumn(newColumn);
-		setNewColumn({ title: '' });
+		setNewColumn({ id: 0, title: '' });
 	};
 
 	return (
