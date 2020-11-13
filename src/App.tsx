@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { IColumn } from './interface';
 import { AnyAction, Dispatch } from 'redux';
 import { Action, addColumn } from './redux/actions/cardActions';
-import AddNewColumn from './components/AddNewColumn';
+import AddNewColumn from './components/AddNewColumn/AddNewColumn';
 
 interface Props {
 	columns?: IColumn[];
@@ -34,7 +34,7 @@ const App: React.FC<Props> = ({ columns = [], addColumn }): JSX.Element => {
 
 const mapStateToProps = (state: AppState): Props => {
 	return {
-		columns: state.ColumnState.columns
+		columns: state.ColumnState!.columns
 	};
 };
 

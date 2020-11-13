@@ -267,14 +267,17 @@ h1 {
   cursor: pointer;
 }
 
+
+
 .column-add-form {
   animation-name: fall-down;
   animation-duration: 250ms;
+  animation-timing-function: ease-in-out;
 }
 
 @keyframes fall-down {
   0% {
-    transform: translateY(-10%);
+    transform: translateY(-5%);
     opacity: 0;
   }
 
@@ -282,8 +285,4 @@ h1 {
     transform: translateY(0);
     opacity: 1;
   }
-}
-
-.invisible {
-  display: none;
 }

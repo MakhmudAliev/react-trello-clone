@@ -4,10 +4,10 @@ import { AnyAction } from 'redux';
 
 export type Action = { type: string; payload: ICard | ICard[] | IColumn | IColumn[] };
 
-export const addCard = (newTask: ICard): Action & AnyAction => {
+export const addCard = (newCard: ICard): Action & AnyAction => {
 	return {
 		type: ADD_CARD,
-		payload: newTask
+		payload: newCard
 	};
 };
 

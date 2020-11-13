@@ -4,8 +4,8 @@ import { CardsState } from './reducers/cardReducer';
 import { ColumnState } from './reducers/columnReducer';
 
 export interface AppState {
-	CardState: CardsState;
-	ColumnState: ColumnState;
+	CardState?: CardsState;
+	ColumnState?: ColumnState;
 }
 
 const initialState: AppState = {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { ICard } from '../interface';
-import { Action } from '../redux/actions/cardActions';
+import { ICard } from '../../interface';
+import { Action } from '../../redux/actions/cardActions';
 
 interface AddNewCardProps {
 	onAddCard: (newTask: ICard) => Action;
@@ -32,21 +32,22 @@ export const AddNewCard: React.FC<AddNewCardProps> = ({ onAddCard, listId }) => 
 				<></>
 			)}
 
-			<div className={addFormVisible ? 'column-add-form' : 'invisible'}>
-				<textarea
-					className="add-card-textarea"
-					placeholder="Enter the task"
-					value={newTask.title}
-					onChange={handleInputChange}
-				/>
-				<button className="btn add-btn-green" onClick={handleButtonClick}>
-					Add card
-				</button>
-				<span className="icon-close">
-					<i className="fas fa-times" onClick={() => setAddFormVisible(false)}></i>
-				</span>
-			</div>
-			{/* )} */}
+			{addFormVisible && (
+				<div className="column-add-form">
+					<textarea
+						className="add-card-textarea"
+						placeholder="Enter the task"
+						value={newTask.title}
+						onChange={handleInputChange}
+					/>
+					<button className="btn add-btn-green" onClick={handleButtonClick}>
+						Add card
+					</button>
+					<span className="icon-close">
+						<i className="fas fa-times" onClick={() => setAddFormVisible(false)}></i>
+					</span>
+				</div>
+			)}
 		</>
 	);
 };

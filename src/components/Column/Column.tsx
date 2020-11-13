@@ -1,13 +1,13 @@
 import React, { useMemo } from "react"
 // import { Card } from './Card';
-import AddNewCard from "./AddNewCard"
+import AddNewCard from "../AddNewCard"
 import { connect } from "react-redux"
-import { ICard } from "../interface"
+import { ICard } from "../../interface"
 import { AnyAction, Dispatch } from "redux"
 
-import { Action, addCard } from "../redux/actions/cardActions"
-import { AppState } from "../redux/store"
-import Card from "./Сard"
+import { Action, addCard } from "../../redux/actions/cardActions"
+import { AppState } from "../../redux/store"
+import Card from "../Сard"
 
 interface ColumnProps {
   cards?: ICard[]
@@ -45,7 +45,7 @@ export const Column: React.FC<ColumnProps> = ({
 
 const mapStateToProps = (state: AppState) => {
   return {
-    cards: state.CardState.cards,
+    cards: state.CardState!.cards,
   }
 }
 
