@@ -115,6 +115,16 @@ h1 {
   font-size: 0.9rem;
   border-bottom: 1px solid #b3b9c4;
   min-width: 280px;
+  cursor: pointer;
+  position: relative;
+}
+
+.card:hover {
+  background-color: #f8f8f8;
+}
+
+.card:hover .fas {
+  display: block;
 }
 
 .card-priority {
@@ -150,6 +160,18 @@ h1 {
 .card-info__checklist i {
   margin-right: 0.25em;
   color: #616d81;
+}
+
+.card .fas {
+  color: #a1a1a1;
+  position: absolute;
+  top: 7px;
+  right: 5px;
+  display: none;
+}
+
+.card-edit {
+  margin: 1em 0;
 }
 
 .priority-green,

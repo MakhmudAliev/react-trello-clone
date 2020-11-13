@@ -9,14 +9,7 @@ export const setCardData = (data: AppState | CardsState | ColumnState, key:strin
 };
 
 export const getCardData = (key:string): any => {
-	const data: string = localStorage.getItem(key) || '';
-	if (data === '') {
-		return {
-			cards: [],
-			columns: []
-		};
-	}
-	console.log("Local Storage ->", data);
+	const data: string = localStorage.getItem(key) || JSON.stringify({cards: [], columns: []});
 	return JSON.parse(data);
 };
 

@@ -1,4 +1,4 @@
-import { ADD_CARD, ADD_COLUMN } from '../constants';
+import { ADD_CARD, ADD_COLUMN, EDIT_CARD } from '../constants';
 import { ICard, IColumn } from '../../interface';
 import { AnyAction } from 'redux';
 
@@ -12,9 +12,15 @@ export const addCard = (newCard: ICard): Action & AnyAction => {
 };
 
 export const addColumn = (newColumn: IColumn): Action & AnyAction => {
-	console.log('add column', newColumn);
 	return {
 		type: ADD_COLUMN,
 		payload: newColumn
 	};
 };
+
+export const editCard = (editedCard: ICard): Action & AnyAction => {
+	return {
+		type: EDIT_CARD,
+		payload: editedCard 
+	}
+}

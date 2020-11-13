@@ -1,10 +1,7 @@
-import { ADD_COLUMN } from '../constants';
-// import { getCardData } from '../../utils';
+import { ADD_COLUMN, storageColumnsKey } from '../constants';
 import { IColumn } from '../../interface';
 import { Action } from '../actions/cardActions';
 import { setCardData } from '../../utils';
-
-const storageColumnsKey = "Trello_Clone_Columns"; // for Local Storage
 
 export interface ColumnState {
 	columns?: IColumn[];

@@ -3,6 +3,7 @@ import { getCardData } from '../utils';
 import rootReducer from './reducers';
 import { CardsState } from './reducers/cardReducer';
 import { ColumnState } from './reducers/columnReducer';
+import { storageCardsKey, storageColumnsKey } from "../redux/constants"
 
 export interface AppState {
 	CardState?: CardsState;
@@ -15,11 +16,9 @@ export interface AppState {
 // };
 
 const initialState: AppState = {
-		CardState: getCardData("Trello_Clone_Cards"),
-		ColumnState: getCardData("Trello_Clone_Columns")
+		CardState: getCardData(storageCardsKey),
+		ColumnState: getCardData(storageColumnsKey)
 };
-
-console.log("initialState", initialState)
 
 export const store = createStore(
 	rootReducer,

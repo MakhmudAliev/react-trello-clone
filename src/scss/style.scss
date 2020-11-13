@@ -120,7 +120,15 @@ h1 {
   font-size: 0.9rem;
   border-bottom: 1px solid #b3b9c4;
   min-width: 280px;
-  // width: 280px;
+  cursor: pointer;
+  position: relative;
+
+  &:hover {
+    background-color: rgb(248, 248, 248);
+    & .fas {
+      display: block;
+    }
+  }
 
   &-priority {
     display: flex;
@@ -153,6 +161,18 @@ h1 {
       }
     }
   }
+
+  & .fas {
+    color: rgb(161, 161, 161);
+    position: absolute;
+    top: 7px;
+    right: 5px;
+    display: none;
+  }
+}
+
+.card-edit {
+  margin: 1em 0;
 }
 
 .priority-green,
