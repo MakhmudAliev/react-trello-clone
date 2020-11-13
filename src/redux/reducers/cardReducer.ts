@@ -1,26 +1,28 @@
 import { ADD_CARD } from '../constants';
-import { getCardData } from '../../utils';
+import { getCardData, setCardData } from '../../utils';
 import { ICard } from '../../interface';
 import { Action } from '../actions/cardActions';
-import { AppState } from '../store';
 
+const storageCardsKey = "Trello_Clone_Cards"; // for local Storage
 
 export interface CardsState {
 	cards?: ICard[];
 }
 
-// const initialState = getCardData() || { cards: [] };
-const initialState:CardsState = { cards: [] };
+const initialState:CardsState = getCardData(storageCardsKey);
+// const initialState:CardsState = { cards: [] };
 
 export default function (state: CardsState = initialState, action: Action): CardsState {
 
-	console.log("state-cards", state);
+	console.log("LS State", state);
 
 	const { type, payload } = action as Action & { payload: ICard };
 
 	switch (type) {
 		case ADD_CARD: {
-			return { ...state, cards: [...state.cards!, payload] };
+			const newState:CardsState = { ...state, cards: [...state.cards!, payload] };
+			setCardData(newState, storageCardsKey);
+			return newState;
 		}
 		default:
 			return state;

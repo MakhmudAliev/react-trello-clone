@@ -2,6 +2,9 @@ import { ADD_COLUMN } from '../constants';
 // import { getCardData } from '../../utils';
 import { IColumn } from '../../interface';
 import { Action } from '../actions/cardActions';
+import { setCardData } from '../../utils';
+
+const storageColumnsKey = "Trello_Clone_Columns"; // for Local Storage
 
 export interface ColumnState {
 	columns?: IColumn[];
@@ -14,7 +17,9 @@ export default function (state: ColumnState = initialState, action: Action): Col
 
 	switch (type) {
 		case ADD_COLUMN: {
-			return { ...state, columns: [...state.columns!, payload] };
+			const newState:ColumnState = { ...state, columns: [...state.columns!, payload] };
+			setCardData(newState, storageColumnsKey);
+			return newState;
 		}
 		default:
 			return state;
