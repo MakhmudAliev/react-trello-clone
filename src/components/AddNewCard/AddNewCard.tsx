@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ICard } from '../../interface';
+import { ICard } from '../../../interface';
 import { Action } from '../../redux/actions/cardActions';
 
 interface AddNewCardProps {

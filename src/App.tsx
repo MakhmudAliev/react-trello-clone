@@ -2,7 +2,7 @@ import React from 'react';
 import Column from './components/Column';
 import { AppState } from './redux/store';
 import { connect } from 'react-redux';
-import { IColumn } from './interface';
+import { IColumn } from '../interface';
 import { AnyAction, Dispatch } from 'redux';
 import { Action, addColumn } from './redux/actions/cardActions';
 import AddNewColumn from './components/AddNewColumn/AddNewColumn';

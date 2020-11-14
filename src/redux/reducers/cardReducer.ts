@@ -1,15 +1,14 @@
 import { ADD_CARD, EDIT_CARD, storageCardsKey } from '../constants';
 import { getCardData, setCardData } from '../../utils';
-import { ICard } from '../../interface';
+import { ICard } from '../../../interface';
 import { Action } from '../actions/cardActions';
 
 
 export interface CardsState {
-	cards?: ICard[];
+	cards: ICard[];
 }
 
-const initialState:CardsState = getCardData(storageCardsKey);
-
+const initialState:CardsState = getCardData(storageCardsKey) as CardsState;
 
 export default function (state: CardsState = initialState, action: Action): CardsState {
 
@@ -17,13 +16,14 @@ export default function (state: CardsState = initialState, action: Action): Card
 
 	switch (type) {
 		case ADD_CARD: {
-			const newState:CardsState = { ...state, cards: [...state.cards!, payload] };
+			const newState:CardsState = { ...state, cards: [...state.cards, payload] };
 			setCardData(newState, storageCardsKey);
 			return newState;
 		}
 		case EDIT_CARD: {
-			const newState:CardsState = { ...state, cards: [...state.cards!, payload] };
-			console.log(newState);
+			const newState:CardsState = { 
+				cards: state.cards.map((item) => (item.id === payload.id) ? payload : item)
+			};
 			setCardData(newState, storageCardsKey);
 			return newState; 
 		}

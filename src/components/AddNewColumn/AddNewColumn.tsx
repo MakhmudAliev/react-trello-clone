@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IColumn } from '../../interface';
+import { IColumn } from '../../../interface';
 import { Action } from '../../redux/actions/cardActions';
 
 interface AddNewColumnProps {

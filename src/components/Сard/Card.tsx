@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { ICard } from "../../interface"
+import { ICard } from "../../../interface"
 import EditCard from "../EditCard";
 import { connect } from "react-redux"
 import { Action, editCard } from "../../redux/actions/cardActions"
@@ -7,24 +7,22 @@ import { AppState } from "../../redux/store"
 import { AnyAction, Dispatch } from "redux"
 
 
-
-
 interface CardProps {
-  card: ICard
+  card: ICard,
+  editCard: (editedCard: ICard) => Action
 }
 
-
-const Card: React.FC<CardProps> = ({ card }) => {
+const Card: React.FC<CardProps> = ({ card, editCard }) => {
   
-  const [editCard, setEditCard] = useState<boolean>(false);
+  const [editMode, setEditMode] = useState<boolean>(false);
 
   const showCard = () => {
-    setEditCard(false);
+    setEditMode(false);
   }
 
   return (
     <>
-      {!editCard ? 
+      {!editMode ? 
         <div className="card">
           <div className="card-priority">
             <div className="priority-orange"></div>
@@ -39,10 +37,10 @@ const Card: React.FC<CardProps> = ({ card }) => {
               <i className="far fa-check-square"></i>2/5
             </div>
           </div>
-          <i className="fas fa-edit" onClick={() => setEditCard(true)}></i>
+          <i className="fas fa-edit" onClick={() => setEditMode(true)}></i>
         </div>
       :
-        <EditCard card={card} showCard={showCard}  />
+        <EditCard card={card} showCard={showCard} editCard={editCard} />
       }
     </>
   )
@@ -60,5 +58,5 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   }
 }
 
-// export default connect(mapStateToProps, mapDispatchToProps)(Card as any)
+// export default connect(() => {}, mapDispatchToProps)(Card as any)
 export default Card

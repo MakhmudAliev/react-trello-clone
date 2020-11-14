@@ -1,10 +1,10 @@
 import { ADD_COLUMN, storageColumnsKey } from '../constants';
-import { IColumn } from '../../interface';
+import { IColumn } from '../../../interface';
 import { Action } from '../actions/cardActions';
 import { setCardData } from '../../utils';
 
 export interface ColumnState {
-	columns?: IColumn[];
+	columns: IColumn[];
 }
 
 const initialState = { columns: [] };
@@ -14,7 +14,7 @@ export default function (state: ColumnState = initialState, action: Action): Col
 
 	switch (type) {
 		case ADD_COLUMN: {
-			const newState:ColumnState = { ...state, columns: [...state.columns!, payload] };
+			const newState:ColumnState = { ...state, columns: [...state.columns, payload] };
 			setCardData(newState, storageColumnsKey);
 			return newState;
 		}

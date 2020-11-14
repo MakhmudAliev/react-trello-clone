@@ -1,15 +1,18 @@
 import React, {useState} from 'react'
-import { ICard } from '../../interface';
+import { ICard } from '../../../interface';
 import { Action, editCard } from "../../redux/actions/cardActions"
+import { connect } from "react-redux"
+import { AppState } from "../../redux/store"
+import { AnyAction, Dispatch } from "redux"
 
 
 type EditCardProps = {
   card: ICard,
   showCard: () => void,
- // onEditCard: (editedCard: ICard) => Action;
+  editCard: (editedCard: ICard) => Action;
 }
 
-export const EditCard: React.FC<EditCardProps> = ( {card, showCard} ) => {
+export const EditCard: React.FC<EditCardProps> = ( {card, showCard, editCard } ) => {
 
   const [editedCard, setEditedCard] = useState(card.title);
 
@@ -18,7 +21,7 @@ export const EditCard: React.FC<EditCardProps> = ( {card, showCard} ) => {
   }
 
   const handleClick = () => {
-    //onEditCard({...card, title: editedCard});
+    editCard({...card, title: editedCard});
     showCard();
   }
 
@@ -38,6 +41,6 @@ export const EditCard: React.FC<EditCardProps> = ( {card, showCard} ) => {
   )
 }
 
-
+// export default connect(mapStateToProps, mapDispatchToProps)(EditCard as any)
 
 export default EditCard;

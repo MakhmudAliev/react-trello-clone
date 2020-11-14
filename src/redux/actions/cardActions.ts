@@ -1,5 +1,5 @@
 import { ADD_CARD, ADD_COLUMN, EDIT_CARD } from '../constants';
-import { ICard, IColumn } from '../../interface';
+import { ICard, IColumn } from '../../../interface';
 import { AnyAction } from 'redux';
 
 export type Action = { type: string; payload: ICard | ICard[] | IColumn | IColumn[] };
