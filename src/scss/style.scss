@@ -33,6 +33,20 @@ h1 {
   font-weight: 400;
   line-height: 1;
 }
+/*
+    Flex
+  */
+
+.edit-card {
+  display: flex;
+  align-items: center;
+
+  & a {
+    color: #b95548;
+    margin-left: 1em;
+  }
+}
+
 
 /* 
     Header

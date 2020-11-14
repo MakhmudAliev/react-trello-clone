@@ -29,6 +29,23 @@ h1 {
   line-height: 1;
 }
 
+/*
+    Flex
+  */
+.edit-card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.edit-card a {
+  color: #b95548;
+  margin-left: 1em;
+}
+
 /* 
     Header
   */

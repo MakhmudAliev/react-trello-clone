@@ -1,18 +1,16 @@
 import React, {useState} from 'react'
 import { ICard } from '../../../interface';
-import { Action, editCard } from "../../redux/actions/cardActions"
-import { connect } from "react-redux"
-import { AppState } from "../../redux/store"
-import { AnyAction, Dispatch } from "redux"
+import { Action } from "../../redux/actions/cardActions"
 
 
 type EditCardProps = {
   card: ICard,
   showCard: () => void,
-  editCard: (editedCard: ICard) => Action;
+  editCard: (editedCard: ICard) => Action,
+  removeCard: (cardToRemove: ICard) => Action,
 }
 
-export const EditCard: React.FC<EditCardProps> = ( {card, showCard, editCard } ) => {
+export const EditCard: React.FC<EditCardProps> = ( {card, showCard, editCard, removeCard } ) => {
 
   const [editedCard, setEditedCard] = useState(card.title);
 
@@ -20,10 +18,16 @@ export const EditCard: React.FC<EditCardProps> = ( {card, showCard, editCard } )
     setEditedCard(event.target.value);    
   }
 
-  const handleClick = () => {
+  const handleSave = () => {
     editCard({...card, title: editedCard});
     showCard();
   }
+
+  const handleRemove = () => {
+    removeCard({...card});
+    showCard();
+  }
+
 
   return (
     <div className="card-edit">
@@ -33,14 +37,16 @@ export const EditCard: React.FC<EditCardProps> = ( {card, showCard, editCard } )
         value={editedCard}
         onChange={handleInputChange}
 			/>
-      	<button className="btn add-btn-green" onClick={handleClick}>
+      <div className="edit-card">
+      	<button className="btn add-btn-green" onClick={handleSave}>
 						Save
 				</button>
+        <a href="#" onClick={handleRemove}>Remove Card</a>
+      </div>
+        
       
     </div>
   )
 }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(EditCard as any)
 
 export default EditCard;

@@ -1,4 +1,4 @@
-import { ADD_CARD, EDIT_CARD, storageCardsKey } from '../constants';
+import { ADD_CARD, EDIT_CARD, REMOVE_CARD, storageCardsKey } from '../constants';
 import { getCardData, setCardData } from '../../utils';
 import { ICard } from '../../../interface';
 import { Action } from '../actions/cardActions';
@@ -26,6 +26,13 @@ export default function (state: CardsState = initialState, action: Action): Card
 			};
 			setCardData(newState, storageCardsKey);
 			return newState; 
+		}
+		case REMOVE_CARD: {
+			const newState:CardsState = {
+				cards: state.cards.filter(item => item.id !== payload.id)
+			}
+			setCardData(newState, storageCardsKey);
+			return newState;
 		}
 		default:
 			return state;

@@ -1,4 +1,4 @@
-import { ADD_CARD, ADD_COLUMN, EDIT_CARD } from '../constants';
+import { ADD_CARD, ADD_COLUMN, EDIT_CARD, REMOVE_CARD } from '../constants';
 import { ICard, IColumn } from '../../../interface';
 import { AnyAction } from 'redux';
 
@@ -22,5 +22,12 @@ export const editCard = (editedCard: ICard): Action & AnyAction => {
 	return {
 		type: EDIT_CARD,
 		payload: editedCard 
+	}
+}
+
+export const removeCard = (cardToRemove: ICard): Action & AnyAction => {
+	return {
+		type: REMOVE_CARD,
+		payload: cardToRemove 
 	}
 }

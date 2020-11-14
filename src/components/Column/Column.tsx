@@ -1,11 +1,10 @@
 import React, { useMemo } from "react"
-// import { Card } from './Card';
 import AddNewCard from "../AddNewCard"
 import { connect } from "react-redux"
 import { ICard } from "../../../interface"
 import { AnyAction, Dispatch } from "redux"
 
-import { Action, addCard, editCard } from "../../redux/actions/cardActions"
+import { Action, addCard, editCard, removeCard } from "../../redux/actions/cardActions"
 import { AppState } from "../../redux/store"
 import Card from "../Сard"
 
@@ -14,7 +13,8 @@ interface ColumnProps {
   addCard?: (newCard: ICard) => Action
   title?: string
   id?: number,
-  editCard: (editedCard: ICard) => Action
+  editCard: (editedCard: ICard) => Action,
+  removeCard: (cartToRemove: ICard) => Action
 }
 
 export const Column: React.FC<ColumnProps> = ({
@@ -22,7 +22,8 @@ export const Column: React.FC<ColumnProps> = ({
   addCard,
   title,
   id,
-  editCard: onEdit
+  editCard: onEdit,
+  removeCard: onRemove
 }) => {
   const columnCards = useMemo(
     () => cards.filter((card) => card.listId === id),
@@ -35,7 +36,7 @@ export const Column: React.FC<ColumnProps> = ({
         <div className="column-header">{title}</div>
         <div className="column-body">
           {columnCards!.map((card) => (
-            <Card card={card} key={card.id} editCard={onEdit}/>
+            <Card card={card} key={card.id} editCard={onEdit} removeCard={onRemove} />
           ))}
         </div>
 
@@ -55,6 +56,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     addCard: (newCard: ICard) => dispatch(addCard(newCard)) as AnyAction,
     editCard: (newCard: ICard) => dispatch(editCard(newCard)) as AnyAction,
+    removeCard: (newCard: ICard) => dispatch(removeCard(newCard)) as AnyAction,
   }
 }
 

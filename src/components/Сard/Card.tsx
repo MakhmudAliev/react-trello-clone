@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import { ICard } from "../../../interface"
 import EditCard from "../EditCard";
-import { connect } from "react-redux"
 import { Action, editCard } from "../../redux/actions/cardActions"
 import { AppState } from "../../redux/store"
 import { AnyAction, Dispatch } from "redux"
@@ -10,9 +9,10 @@ import { AnyAction, Dispatch } from "redux"
 interface CardProps {
   card: ICard,
   editCard: (editedCard: ICard) => Action
+  removeCard: (cardToRemove: ICard) => Action
 }
 
-const Card: React.FC<CardProps> = ({ card, editCard }) => {
+const Card: React.FC<CardProps> = ({ card, editCard, removeCard }) => {
   
   const [editMode, setEditMode] = useState<boolean>(false);
 
@@ -40,7 +40,7 @@ const Card: React.FC<CardProps> = ({ card, editCard }) => {
           <i className="fas fa-edit" onClick={() => setEditMode(true)}></i>
         </div>
       :
-        <EditCard card={card} showCard={showCard} editCard={editCard} />
+        <EditCard card={card} showCard={showCard} editCard={editCard} removeCard={removeCard} />
       }
     </>
   )
@@ -58,5 +58,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   }
 }
 
-// export default connect(() => {}, mapDispatchToProps)(Card as any)
 export default Card
