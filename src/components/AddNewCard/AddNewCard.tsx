@@ -1,27 +1,28 @@
 import React, { useState } from "react";
 import { ICard } from "../../../interface";
 import { Action } from "../../redux/actions/cardActions";
+import { v4 as uuid } from "uuid";
 
 interface AddNewCardProps {
   onAddCard: (newTask: ICard) => Action;
-  listId: number;
+  listId: string;
 }
 
 export const AddNewCard: React.FC<AddNewCardProps> = ({ onAddCard, listId }) => {
   const [addFormVisible, setAddFormVisible] = useState<boolean>(false);
   const [newTask, setNewTask] = useState<ICard>({
-    id: 0,
-    listId: 0,
+    id: "",
+    listId: "",
     title: "",
   });
 
   const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setNewTask({ id: Date.now(), title: event.target.value, listId: listId });
+    setNewTask({ id: uuid(), title: event.target.value, listId: listId });
   };
 
   const handleButtonClick = () => {
     onAddCard(newTask);
-    setNewTask({ id: 0, listId: 0, title: "" });
+    setNewTask({ id: "", listId: "", title: "" });
   };
 
   return (

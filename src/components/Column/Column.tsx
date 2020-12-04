@@ -3,7 +3,6 @@ import AddNewCard from "../AddNewCard";
 import { connect } from "react-redux";
 import { ICard } from "../../../interface";
 import { AnyAction, Dispatch } from "redux";
-
 import { Action, addCard, editCard, removeCard } from "../../redux/actions/cardActions";
 import { AppState } from "../../redux/store";
 import Card from "../Сard";
@@ -13,7 +12,7 @@ interface ColumnProps {
   cards?: ICard[];
   addCard?: (newCard: ICard) => Action;
   title?: string;
-  id?: number;
+  id?: string;
   editCard: (editedCard: ICard) => Action;
   removeCard: (cartToRemove: ICard) => Action;
 }

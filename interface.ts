@@ -1,14 +1,14 @@
 export interface IColumn {
-	id: number;
-	title: string;
+  id: string;
+  title: string;
 }
 
 export interface ICard {
-	id: number;
-	title: string;
-	listId: number;
-	dueDate?: Date;
-	description?: string;
-	checklist?: [];
-	priority?: [];
+  id: string;
+  title: string;
+  listId: string;
+  dueDate?: Date;
+  description?: string;
+  checklist?: [];
+  priority?: [];
 }

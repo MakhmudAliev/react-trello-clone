@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { IColumn } from "../../../interface";
 import { Action } from "../../redux/actions/cardActions";
+import { v4 as uuid } from "uuid";
 
 interface AddNewColumnProps {
   onAddColumn: (newColumn: IColumn) => Action;
@@ -8,24 +9,21 @@ interface AddNewColumnProps {
 
 export const AddNewColumn: React.FC<AddNewColumnProps> = ({ onAddColumn }) => {
   const [addFormVisible, setAddFormVisible] = useState<boolean>(false);
-  const [newColumn, setNewColumn] = useState<IColumn>({ id: 0, title: "" });
+  const [newColumn, setNewColumn] = useState<IColumn>({ id: "", title: "" });
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNewColumn({ title: event.target.value, id: Date.now() });
+    setNewColumn({ title: event.target.value, id: uuid() });
   };
 
   const handleButtonClick = () => {
     onAddColumn(newColumn);
-    setNewColumn({ id: 0, title: "" });
+    setNewColumn({ id: "", title: "" });
   };
 
   return (
     <div className="column">
       {!addFormVisible ? (
-        <button
-          className="btn add-list-btn"
-          onClick={() => setAddFormVisible(true)}
-        >
+        <button className="btn add-list-btn" onClick={() => setAddFormVisible(true)}>
           <i className="fas fa-plus"></i> Add new list
         </button>
       ) : (
@@ -40,10 +38,7 @@ export const AddNewColumn: React.FC<AddNewColumnProps> = ({ onAddColumn }) => {
             Add new list
           </button>
           <span className="icon-close">
-            <i
-              className="fas fa-times"
-              onClick={() => setAddFormVisible(false)}
-            ></i>
+            <i className="fas fa-times" onClick={() => setAddFormVisible(false)}></i>
           </span>
         </div>
       )}

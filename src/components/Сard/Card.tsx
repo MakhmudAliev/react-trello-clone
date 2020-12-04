@@ -24,9 +24,7 @@ const Card: React.FC<CardProps> = ({ card, editCard, removeCard }) => {
             <div className="priority-orange"></div>
             <div className="priority-green"></div>
           </div>
-          <div className="card-title">
-            {card.id} - {card.title}
-          </div>
+          <div className="card-title">{card.title}</div>
           <div className="card-info">
             <div className="card-info__due-date due-date-red">
               <i className="far fa-clock"></i> 4 nov 2020
