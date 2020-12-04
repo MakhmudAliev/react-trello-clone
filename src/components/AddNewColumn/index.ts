@@ -1,1 +1,1 @@
-export { default } from './AddNewColumn';
+export { default } from "./AddNewColumn";
