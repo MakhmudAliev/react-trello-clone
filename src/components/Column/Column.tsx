@@ -10,9 +10,9 @@ import { Draggable } from "react-beautiful-dnd";
 
 interface ColumnProps {
   cards?: ICard[];
-  addCard?: (newCard: ICard) => Action;
   title?: string;
   id?: string;
+  addCard?: (newCard: ICard) => Action;
   editCard: (editedCard: ICard) => Action;
   removeCard: (cartToRemove: ICard) => Action;
 }
@@ -36,7 +36,7 @@ export const Column: React.FC<ColumnProps> = ({
         <div className="column-header">{title}</div>
         <div className="column-body">
           {columnCards!.map((card, index) => (
-            <Draggable key={index} draggableId={card.id.toString()} index={index}>
+            <Draggable key={index} draggableId={`${card.id} - ${index}`} index={index}>
               {provided => (
                 <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
                   <Card card={card} editCard={onEdit} removeCard={onRemove} />

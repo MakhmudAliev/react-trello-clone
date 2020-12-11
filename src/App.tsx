@@ -14,6 +14,7 @@ interface Props {
   addColumn?: (newColumn: IColumn) => Action;
   reorderColumn?: (newList: ICard[]) => Action;
 }
+
 interface IMoveResult {
   droppable: IColumn[];
   droppable2: IColumn[];
@@ -71,7 +72,7 @@ const App: React.FC<Props> = ({ columns = [], cards = [], addColumn, reorderColu
     const sInd = +source.droppableId; // Source Column Index
     const dInd = +destination.droppableId; // Destination Column Index
 
-    // console.log(sInd, dInd);
+    console.log("sInd, dInd", sInd, dInd);
 
     if (sInd === dInd) {
       // We drop item in the same Column

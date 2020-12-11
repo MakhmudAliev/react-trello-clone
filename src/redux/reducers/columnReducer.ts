@@ -1,4 +1,4 @@
-import { ADD_COLUMN, REORDER_COLUMN, storageColumnsKey } from "../constants";
+import { ADD_COLUMN, storageColumnsKey } from "../constants";
 import { IColumn } from "../../../interface";
 import { Action } from "../actions/cardActions";
 import { setCardData } from "../../utils";
