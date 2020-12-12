@@ -44,6 +44,7 @@ export default function (state: CardsState = initialState, action: Action): Card
       setCardData(newState, storageCardsKey);
       return newState;
     }
+
     default:
       return state;
   }

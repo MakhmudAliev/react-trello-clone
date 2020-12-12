@@ -43,27 +43,29 @@ const App: React.FC<Props> = ({ columns = [], cards = [], addColumn, reorderColu
   // Move draggable elements ========================================================
 
   const move = (
-    source: IColumn[],
-    destination: IColumn[],
+    source: ICard[],
+    destination: ICard[],
     droppableSource: DraggableLocation,
     droppableDestination: DraggableLocation
   ): IMoveResult | any => {
+
     const sourceClone = [...source];
     const destClone = [...destination];
     const [removed] = sourceClone.splice(droppableSource.index, 1);
-
+    removed.listId = destClone[0].listId;
     destClone.splice(droppableDestination.index, 0, removed);
 
     let result: any = {};
     result[droppableSource.droppableId] = sourceClone;
     result[droppableDestination.droppableId] = destClone;
-
     return result;
   };
 
   // Handle drag  ===================================================================
   const onDragEnd = (reorderColumn: (newList: ICard[]) => Action) => (result: DropResult) => {
     const { source, destination } = result;
+
+    console.log("source, destination", source, destination);
 
     if (!destination) {
       return;
@@ -86,7 +88,6 @@ const App: React.FC<Props> = ({ columns = [], cards = [], addColumn, reorderColu
 
       reorderColumn(stateToRedux);
 
-      console.log("state after manipulation", state);
     } else {
       // We drop item in different Column
       const result = move(state[sInd], state[dInd], source, destination);
@@ -94,6 +95,8 @@ const App: React.FC<Props> = ({ columns = [], cards = [], addColumn, reorderColu
       newState[sInd] = result[sInd];
       newState[dInd] = result[dInd];
       setState(newState.filter(group => group.length));
+      const stateToRedux = newState.flatMap(item => item);
+      reorderColumn(stateToRedux);
     }
   };
   // =================================================================================
