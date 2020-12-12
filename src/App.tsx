@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Column from "./components/Column";
 import { AppState } from "./redux/store";
 import { connect } from "react-redux";
@@ -21,12 +21,16 @@ interface IMoveResult {
 }
 
 const App: React.FC<Props> = ({ columns = [], cards = [], addColumn, reorderColumn }): JSX.Element => {
-  const initialState: any = columns.map(column => {
-    return cards.filter(card => card.listId === column.id);
-  });
+  console.log("columns -> ", columns);
 
-  const [state, setState] = useState<any>(initialState);
+  useEffect(() => {
+    const initialState: any = columns.map((column) => {
+      return cards.filter(card => card.listId === column.id);
+    });
+    setState(initialState);
+  }, [JSON.stringify(columns)]);
 
+  const [state, setState] = useState<any>([]);
   console.log("initialState", state);
 
   // reorder draggable elements ====================================================
@@ -48,12 +52,20 @@ const App: React.FC<Props> = ({ columns = [], cards = [], addColumn, reorderColu
     droppableSource: DraggableLocation,
     droppableDestination: DraggableLocation
   ): IMoveResult | any => {
+    console.log("enter move", source, destination, droppableSource, droppableDestination);
 
     const sourceClone = [...source];
     const destClone = [...destination];
+
     const [removed] = sourceClone.splice(droppableSource.index, 1);
-    removed.listId = destClone[0].listId;
-    destClone.splice(droppableDestination.index, 0, removed);
+
+    if (!destClone.length) {
+      removed.listId = columns[+droppableDestination.droppableId].id;
+      destClone.push(removed);
+    } else {
+      removed.listId = columns[+droppableDestination.droppableId].id;
+      destClone.splice(droppableDestination.index, 0, removed);
+    }
 
     let result: any = {};
     result[droppableSource.droppableId] = sourceClone;
@@ -87,14 +99,13 @@ const App: React.FC<Props> = ({ columns = [], cards = [], addColumn, reorderColu
       const stateToRedux = newState.flatMap(item => item);
 
       reorderColumn(stateToRedux);
-
     } else {
       // We drop item in different Column
       const result = move(state[sInd], state[dInd], source, destination);
       const newState = [...state];
       newState[sInd] = result[sInd];
       newState[dInd] = result[dInd];
-      setState(newState.filter(group => group.length));
+      setState(newState);
       const stateToRedux = newState.flatMap(item => item);
       reorderColumn(stateToRedux);
     }

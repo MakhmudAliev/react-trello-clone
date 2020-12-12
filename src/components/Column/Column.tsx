@@ -36,10 +36,10 @@ export const Column: React.FC<ColumnProps> = ({
         <div className="column-header">{title}</div>
         <div className="column-body">
           {columnCards!.map((card, index) => (
-            <Draggable key={index} draggableId={`${card.id} - ${index}`} index={index}>
+            <Draggable key={card.id} draggableId={`${card.id}`} index={index}>
               {provided => (
                 <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-                  <Card card={card} editCard={onEdit} removeCard={onRemove} />
+                  <Card card={card} editCard={onEdit} removeCard={onRemove} index={index} />
                 </div>
               )}
             </Draggable>
