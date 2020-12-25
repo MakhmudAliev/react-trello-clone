@@ -1,12 +1,13 @@
-import React, { useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import AddNewCard from "../AddNewCard";
 import { connect } from "react-redux";
-import { ICard } from "../../../interface";
+import { ICard, IColumn } from "../../../interface";
 import { AnyAction, Dispatch } from "redux";
-import { Action, addCard, editCard, removeCard } from "../../redux/actions/cardActions";
+import { Action, addCard, editCard, removeCard, removeColumn } from "../../redux/actions/cardActions";
 import { AppState } from "../../redux/store";
 import Card from "../Сard";
 import { Draggable } from "react-beautiful-dnd";
+import ColumnDropdown from "./ColumnDropdown";
 
 interface ColumnProps {
   cards?: ICard[];
@@ -15,6 +16,7 @@ interface ColumnProps {
   addCard?: (newCard: ICard) => Action;
   editCard: (editedCard: ICard) => Action;
   removeCard: (cartToRemove: ICard) => Action;
+  removeColumn: (columnToRemove: string) => Action;
 }
 
 export const Column: React.FC<ColumnProps> = ({
@@ -24,7 +26,14 @@ export const Column: React.FC<ColumnProps> = ({
   id,
   editCard: onEdit,
   removeCard: onRemove,
+  removeColumn: onRemoveColumn,
 }) => {
+  const [dropdownVisible, setDropdownVisible] = useState<boolean>(false);
+
+  const toggleDropdown = () => {
+    setDropdownVisible(prevState => !prevState);
+  };
+
   const columnCards = useMemo(
     () => cards.filter(card => card.listId === id),
     [cards] // eslint-disable-line react-hooks/exhaustive-deps
@@ -33,7 +42,13 @@ export const Column: React.FC<ColumnProps> = ({
   return (
     <>
       <div className="column">
-        <div className="column-header">{title}</div>
+        <div className="column-header">
+          <div>{title}</div>
+          <div className="column-header__dots" onClick={toggleDropdown}>
+            <i className="fas fa-ellipsis-h"></i>
+            <ColumnDropdown columnId={id!} isVisible={dropdownVisible} removeColumn={onRemoveColumn} />
+          </div>
+        </div>
         <div className="column-body">
           {columnCards!.map((card, index) => (
             <Draggable key={card.id} draggableId={`${card.id}`} index={index}>
@@ -63,6 +78,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     addCard: (newCard: ICard) => dispatch(addCard(newCard)) as AnyAction,
     editCard: (newCard: ICard) => dispatch(editCard(newCard)) as AnyAction,
     removeCard: (newCard: ICard) => dispatch(removeCard(newCard)) as AnyAction,
+    removeColumn: (columnToRemove: string) => dispatch(removeColumn(columnToRemove)) as AnyAction,
   };
 };
 

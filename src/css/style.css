@@ -14,7 +14,7 @@ img {
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   color: #182c4c;
   line-height: 1.4;
   min-height: 100vh;
@@ -38,11 +38,11 @@ h1 {
   width: 100%;
   padding: 1em 0;
   text-align: center;
-  opacity: .8;
+  opacity: 0.8;
 }
 
 .logo {
-  opacity: .8;
+  opacity: 0.8;
 }
 
 .fullpage {
@@ -108,8 +108,69 @@ h1 {
 
 .column-header {
   color: #182c4c;
-  margin: .25em .75em;
+  margin: 0.25em 0.75em;
   font-weight: 700;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.column-header__dots {
+  cursor: pointer;
+  padding: 0.1em 0.5em 0 0.5em;
+  border-radius: 3px;
+  position: relative;
+}
+
+.column-header__dots:hover {
+  background-color: #f8f8f8;
+}
+
+.column-dropdown {
+  position: absolute;
+  left: 0;
+  z-index: 1;
+  -webkit-box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);
+  background: white;
+  border-radius: 2px;
+  border: 1px solid #dfe2e6;
+  padding: 0 0 1em 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.column-dropdown a {
+  display: block;
+  color: #57657d;
+  padding: 0.25em 3.5em 0.25em 1em;
+  font-weight: 400;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.column-dropdown a:hover {
+  background-color: #f5f6f8;
+}
+
+.column-dropdown .dropdown-close {
+  display: inline-block;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  padding: 0 0.5em;
+  margin: 0.5em 0.5em 0 0;
 }
 
 /*
@@ -117,8 +178,8 @@ h1 {
     */
 .card {
   background-color: #fff;
-  padding: .5em .5em .5em .5em;
-  margin: .75em .25em;
+  padding: 0.5em 0.5em 0.5em 0.5em;
+  margin: 0.75em 0.25em;
   border-radius: 4px;
   font-size: 0.9rem;
   border-bottom: 1px solid #b3b9c4;
@@ -145,7 +206,7 @@ h1 {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  margin-top: .5em;
+  margin-top: 0.5em;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -155,14 +216,14 @@ h1 {
 .card-info__due-date {
   display: inline-block;
   background-color: #65bc55;
-  padding: 0.25em 1em .25em .75em;
+  padding: 0.25em 1em 0.25em 0.75em;
   border-radius: 4px;
-  margin-right: .75em;
+  margin-right: 0.75em;
   color: white;
 }
 
 .card-info__due-date i {
-  margin-right: .25em;
+  margin-right: 0.25em;
 }
 
 .card-info__checklist i {
@@ -180,7 +241,6 @@ h1 {
 
 .card-edit {
   margin: 1em 0;
-  border: 1px solid red;
   z-index: 110;
 }
 
@@ -228,18 +288,18 @@ h1 {
     */
 .btn {
   border: 0;
-  padding: .5em .75em;
+  padding: 0.5em 0.75em;
   cursor: pointer;
   -webkit-transition: all 250ms ease-in-out;
   transition: all 250ms ease-in-out;
   font-size: 1rem;
   border-radius: 4px;
-  margin-left: .25em;
+  margin-left: 0.25em;
   color: #5f6d83;
 }
 
 .btn i {
-  margin-right: .25em;
+  margin-right: 0.25em;
 }
 
 .btn:hover, .btn:focus {
@@ -262,19 +322,19 @@ h1 {
 .add-btn-green:focus {
   background-color: #5dab4a;
   color: white;
-  opacity: .9;
+  opacity: 0.9;
 }
 
 .add-card-textarea {
   display: block;
   width: 97%;
   height: 70px;
-  margin: .5em 2em .5em .25em;
-  padding: .5em;
+  margin: 0.5em 2em 0.5em 0.25em;
+  padding: 0.5em;
   border-radius: 4px;
   border: 0;
   border-bottom: 1px solid #b3b9c4;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   color: #182c4c;
 }
 
@@ -282,11 +342,11 @@ h1 {
   display: block;
   width: 97%;
   height: 30px;
-  margin: .5em 2em .5em .25em;
-  padding: .5em;
+  margin: 0.5em 2em 0.5em 0.25em;
+  padding: 0.5em;
   border-radius: 4px;
   border: 1px solid #b3b9c4;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   color: #182c4c;
 }
 

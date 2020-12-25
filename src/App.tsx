@@ -21,17 +21,15 @@ interface IMoveResult {
 }
 
 const App: React.FC<Props> = ({ columns = [], cards = [], addColumn, reorderColumn }): JSX.Element => {
-  console.log("columns -> ", columns);
+  const [state, setState] = useState<any>([]);
 
   useEffect(() => {
-    const initialState: any = columns.map((column) => {
+    const initialState: any = columns.map(column => {
       return cards.filter(card => card.listId === column.id);
     });
     setState(initialState);
-  }, [JSON.stringify(columns)]);
-
-  const [state, setState] = useState<any>([]);
-  console.log("initialState", state);
+    console.log("initial-state", initialState);
+  }, [JSON.stringify(cards), JSON.stringify(columns)]);
 
   // reorder draggable elements ====================================================
 
@@ -86,7 +84,7 @@ const App: React.FC<Props> = ({ columns = [], cards = [], addColumn, reorderColu
     const sInd = +source.droppableId; // Source Column Index
     const dInd = +destination.droppableId; // Destination Column Index
 
-    console.log("sInd, dInd", sInd, dInd);
+    console.log("sInd, dInd, state", sInd, dInd, state);
 
     if (sInd === dInd) {
       // We drop item in the same Column

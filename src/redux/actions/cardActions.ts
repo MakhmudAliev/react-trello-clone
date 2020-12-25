@@ -1,10 +1,10 @@
-import { ADD_CARD, ADD_COLUMN, EDIT_CARD, REMOVE_CARD, REORDER_COLUMN } from "../constants";
+import { ADD_CARD, ADD_COLUMN, EDIT_CARD, REMOVE_CARD, REMOVE_COLUMN, REORDER_COLUMN } from "../constants";
 import { ICard, IColumn } from "../../../interface";
 import { AnyAction } from "redux";
 
 export type Action = {
   type: string;
-  payload: ICard | ICard[] | IColumn | IColumn[];
+  payload: ICard | ICard[] | IColumn | IColumn[] | string;
 };
 
 export const addCard = (newCard: ICard): Action & AnyAction => {
@@ -32,6 +32,13 @@ export const removeCard = (cardToRemove: ICard): Action & AnyAction => {
   return {
     type: REMOVE_CARD,
     payload: cardToRemove,
+  };
+};
+
+export const removeColumn = (columnId: string): Action & AnyAction => {
+  return {
+    type: REMOVE_COLUMN,
+    payload: columnId,
   };
 };
 

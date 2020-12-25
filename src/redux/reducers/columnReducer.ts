@@ -1,4 +1,4 @@
-import { ADD_COLUMN, storageColumnsKey } from "../constants";
+import { ADD_COLUMN, REMOVE_COLUMN, storageColumnsKey } from "../constants";
 import { IColumn } from "../../../interface";
 import { Action } from "../actions/cardActions";
 import { setCardData } from "../../utils";
@@ -17,6 +17,14 @@ export default function (state: ColumnState = initialState, action: Action): Col
       const newState: ColumnState = {
         ...state,
         columns: [...state.columns, payload],
+      };
+      setCardData(newState, storageColumnsKey);
+      return newState;
+    }
+
+    case REMOVE_COLUMN: {
+      const newState: ColumnState = {
+        columns: state.columns.filter(item => item.id !== payload),
       };
       setCardData(newState, storageColumnsKey);
       return newState;
