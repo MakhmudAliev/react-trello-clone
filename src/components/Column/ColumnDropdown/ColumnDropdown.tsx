@@ -5,9 +5,10 @@ interface ColumnDropdownProps {
   columnId: string;
   isVisible: boolean;
   removeColumn: (columnToRemove: string) => Action;
+  removeCards: (listId: string) => Action;
 }
 
-export const ColumnDropdown: React.FC<ColumnDropdownProps> = ({ columnId, isVisible, removeColumn }) => {
+export const ColumnDropdown: React.FC<ColumnDropdownProps> = ({ columnId, isVisible, removeColumn, removeCards }) => {
   const [visible, setVisible] = useState<boolean>(true);
 
   useEffect(() => {
@@ -19,8 +20,8 @@ export const ColumnDropdown: React.FC<ColumnDropdownProps> = ({ columnId, isVisi
   };
 
   const handleRemove = (id: string) => {
-    console.log(id);
     removeColumn(id);
+    removeCards(id);
   };
 
   return (

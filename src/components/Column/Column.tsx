@@ -3,7 +3,7 @@ import AddNewCard from "../AddNewCard";
 import { connect } from "react-redux";
 import { ICard, IColumn } from "../../../interface";
 import { AnyAction, Dispatch } from "redux";
-import { Action, addCard, editCard, removeCard, removeColumn } from "../../redux/actions/cardActions";
+import { Action, addCard, editCard, removeCard, removeColumn, removeCards } from "../../redux/actions/cardActions";
 import { AppState } from "../../redux/store";
 import Card from "../Сard";
 import { Draggable } from "react-beautiful-dnd";
@@ -17,6 +17,7 @@ interface ColumnProps {
   editCard: (editedCard: ICard) => Action;
   removeCard: (cartToRemove: ICard) => Action;
   removeColumn: (columnToRemove: string) => Action;
+  removeCards: (listId: string) => Action;
 }
 
 export const Column: React.FC<ColumnProps> = ({
@@ -27,6 +28,7 @@ export const Column: React.FC<ColumnProps> = ({
   editCard: onEdit,
   removeCard: onRemove,
   removeColumn: onRemoveColumn,
+  removeCards: onRemoveCards,
 }) => {
   const [dropdownVisible, setDropdownVisible] = useState<boolean>(false);
 
@@ -46,7 +48,12 @@ export const Column: React.FC<ColumnProps> = ({
           <div>{title}</div>
           <div className="column-header__dots" onClick={toggleDropdown}>
             <i className="fas fa-ellipsis-h"></i>
-            <ColumnDropdown columnId={id!} isVisible={dropdownVisible} removeColumn={onRemoveColumn} />
+            <ColumnDropdown
+              columnId={id!}
+              isVisible={dropdownVisible}
+              removeCards={onRemoveCards}
+              removeColumn={onRemoveColumn}
+            />
           </div>
         </div>
         <div className="column-body">
@@ -79,6 +86,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     editCard: (newCard: ICard) => dispatch(editCard(newCard)) as AnyAction,
     removeCard: (newCard: ICard) => dispatch(removeCard(newCard)) as AnyAction,
     removeColumn: (columnToRemove: string) => dispatch(removeColumn(columnToRemove)) as AnyAction,
+    removeCards: (listId: string) => dispatch(removeCards(listId)) as AnyAction,
   };
 };
 

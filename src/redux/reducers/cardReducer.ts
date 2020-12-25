@@ -1,4 +1,4 @@
-import { ADD_CARD, EDIT_CARD, REMOVE_CARD, REORDER_COLUMN, storageCardsKey } from "../constants";
+import { ADD_CARD, EDIT_CARD, REMOVE_CARD, REMOVE_CARDS, REORDER_COLUMN, storageCardsKey } from "../constants";
 import { getCardData, setCardData } from "../../utils";
 import { ICard } from "../../../interface";
 import { Action } from "../actions/cardActions";
@@ -35,6 +35,13 @@ export default function (state: CardsState = initialState, action: Action): Card
       setCardData(newState, storageCardsKey);
       return newState;
     }
+    case REMOVE_CARDS: {
+      const newState: CardsState = {
+        cards: state.cards.filter(item => item.listId !== payload),
+      };
+      setCardData(newState, storageCardsKey);
+      return newState;
+    }
     case REORDER_COLUMN: {
       console.log("payload", payload);
       const newState: CardsState = {
@@ -49,3 +56,4 @@ export default function (state: CardsState = initialState, action: Action): Card
       return state;
   }
 }
+
