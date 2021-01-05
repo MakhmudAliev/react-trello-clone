@@ -15,11 +15,11 @@ export const ColumnDropdown: React.FC<ColumnDropdownProps> = ({ columnId, isVisi
     setVisible(isVisible);
   }, [isVisible]);
 
-  const handleClick = () => {
+  const handleClick = (): void => {
     setVisible(false);
   };
 
-  const handleRemove = (id: string) => {
+  const handleRemove = (id: string): void => {
     removeColumn(id);
     removeCards(id);
   };
@@ -32,9 +32,9 @@ export const ColumnDropdown: React.FC<ColumnDropdownProps> = ({ columnId, isVisi
             x
           </a>
           <a href="#" onClick={() => handleRemove(columnId)}>
-            Remove column
+            Remove list
           </a>
-          <a href="#">Add card</a>
+          <a href="#">Edit list name</a>
         </div>
       )}
     </>

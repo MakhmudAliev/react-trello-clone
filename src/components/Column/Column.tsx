@@ -33,7 +33,7 @@ export const Column: React.FC<ColumnProps> = ({
   const [dropdownVisible, setDropdownVisible] = useState<boolean>(false);
 
   const toggleDropdown = () => {
-    setDropdownVisible(prevState => !prevState);
+    setDropdownVisible(!dropdownVisible);
   };
 
   const columnCards = useMemo(
