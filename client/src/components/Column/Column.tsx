@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from "react";
 import AddNewCard from "../AddNewCard";
 import { connect } from "react-redux";
-import { ICard, IColumn } from "../../../interface";
+import { ICard } from "../../../interface";
 import { AnyAction, Dispatch } from "redux";
 import { Action, addCard, editCard, removeCard, removeColumn, removeCards } from "../../redux/actions/cardActions";
 import { AppState } from "../../redux/store";

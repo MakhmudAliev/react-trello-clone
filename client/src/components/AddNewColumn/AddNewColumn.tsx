@@ -4,7 +4,7 @@ import { Action } from "../../redux/actions/cardActions";
 import { v4 as uuid } from "uuid";
 
 interface AddNewColumnProps {
-  onAddColumn: (newColumn: IColumn) => Action;
+  onAddColumn: (newColumn: IColumn) => void;
 }
 
 export const AddNewColumn: React.FC<AddNewColumnProps> = ({ onAddColumn }) => {

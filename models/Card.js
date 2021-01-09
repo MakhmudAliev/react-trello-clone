@@ -6,7 +6,7 @@ const CardSchema = new mongoose.Schema({
     trim: true,
     required: [true, "Please add some text"],
   },
-  listID: {
+  listId: {
     type: String,
     required: true,
   },

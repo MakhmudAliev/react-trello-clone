@@ -4,15 +4,18 @@ import { AppState } from "./redux/store";
 import { connect } from "react-redux";
 import { ICard, IColumn } from "../interface";
 import { AnyAction, Dispatch } from "redux";
-import { Action, addColumn, reorderColumn } from "./redux/actions/cardActions";
+import { Action, addColumn, addColumnDB, reorderColumn, fetchColumns } from "./redux/actions/cardActions";
 import AddNewColumn from "./components/AddNewColumn/AddNewColumn";
 import { DragDropContext, Droppable, DraggableLocation, DropResult } from "react-beautiful-dnd";
+import { ThunkDispatch } from "redux-thunk";
 
 interface Props {
   columns?: IColumn[];
   cards?: ICard[];
   addColumn?: (newColumn: IColumn) => Action;
   reorderColumn?: (newList: ICard[]) => Action;
+  fetchColumns?: () => void;
+  addColumnDB?: (newColumn: IColumn) => void;
 }
 
 interface IMoveResult {
@@ -20,15 +23,29 @@ interface IMoveResult {
   droppable2: IColumn[];
 }
 
-const App: React.FC<Props> = ({ columns = [], cards = [], addColumn, reorderColumn }): JSX.Element => {
+const App: React.FC<Props> = ({
+  columns = [],
+  cards = [],
+  addColumn,
+  reorderColumn,
+  fetchColumns = () => {},
+  addColumnDB = () => {},
+}): JSX.Element => {
   const [state, setState] = useState<any>([]);
+  console.log(columns, cards);
 
   useEffect(() => {
+    fetchColumns();
+  }, []);
+
+  useEffect(() => {
+    // without back end
     const initialState: any = columns.map(column => {
       return cards.filter(card => card.listId === column.id);
     });
+
     setState(initialState);
-    console.log("initial-state", initialState);
+    // console.log("initial-state", initialState);
   }, [JSON.stringify(cards), JSON.stringify(columns)]);
 
   // reorder draggable elements ====================================================
@@ -129,7 +146,7 @@ const App: React.FC<Props> = ({ columns = [], cards = [], addColumn, reorderColu
                   )}
                 </Droppable>
               ))}
-              <AddNewColumn onAddColumn={addColumn!} />
+              <AddNewColumn onAddColumn={addColumnDB!} />
             </DragDropContext>
           </div>
         </div>
@@ -146,11 +163,18 @@ const mapStateToProps = (state: AppState): Props => {
 };
 
 const mapDispatchToProps = (
-  dispatch: Dispatch
-): { addColumn: (newColumn: IColumn) => void; reorderColumn: (newList: ICard[]) => void } => {
+  dispatch: Dispatch & ThunkDispatch<any, any, any>
+): {
+  addColumn: (newColumn: IColumn) => void;
+  reorderColumn: (newList: ICard[]) => void;
+  fetchColumns: () => void;
+  addColumnDB: (newColumn: IColumn) => void;
+} => {
   return {
     addColumn: (newColumn: IColumn) => dispatch(addColumn(newColumn)) as AnyAction,
     reorderColumn: (newList: ICard[]) => dispatch(reorderColumn(newList)) as AnyAction,
+    fetchColumns: () => dispatch(fetchColumns()),
+    addColumnDB: (newColumn: IColumn) => dispatch(addColumnDB(newColumn)),
   };
 };
 
