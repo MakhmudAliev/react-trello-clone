@@ -9,6 +9,9 @@ import {
   FETCH_COLUMNS_REQUEST,
   FETCH_COLUMNS_SUCCESS,
   FETCH_COLUMNS_FAILURE,
+  FETCH_CARDS_REQUEST,
+  FETCH_CARDS_SUCCESS,
+  FETCH_CARDS_FAILURE,
 } from "../constants";
 import { ICard, IColumn } from "../../../interface";
 import { AnyAction } from "redux";
@@ -19,6 +22,9 @@ export type Action = {
   payload: ICard | ICard[] | IColumn | IColumn[] | string;
 };
 
+/**
+ * Fetch Columns from DB
+ */
 export const fetchColumnsRequest = (): Action & AnyAction => {
   return {
     type: FETCH_COLUMNS_REQUEST,
@@ -56,6 +62,11 @@ export const fetchColumns = () => {
   };
 };
 
+/**
+ * @param newColumn
+ * Add column to DB
+ */
+
 export const addColumnDB = (newColumn: IColumn) => {
   return (dispatch: any) => {
     // db add
@@ -71,6 +82,73 @@ export const addColumnDB = (newColumn: IColumn) => {
   };
 };
 
+/**
+ * Fetch Cards from DB
+ * @param newCard
+ */
+export const fetchCardsRequest = (): Action & AnyAction => {
+  return {
+    type: FETCH_CARDS_REQUEST,
+    payload: [],
+  };
+};
+
+export const fetchCardsSuccess = (cards: ICard[]): Action & AnyAction => {
+  return {
+    type: FETCH_CARDS_SUCCESS,
+    payload: cards,
+  };
+};
+
+export const fetchCardsFailure = (error: string): Action & AnyAction => {
+  return {
+    type: FETCH_CARDS_FAILURE,
+    payload: error,
+  };
+};
+
+export const fetchCards = () => {
+  return (dispatch: any) => {
+    dispatch(fetchCardsRequest());
+    axios
+      .get("/api/v1/cards")
+      .then(response => {
+        const cards = response.data.data;
+        console.log("cards", cards);
+
+        dispatch(fetchCardsSuccess(cards));
+      })
+      .catch(error => {
+        const errMessage = error.message;
+        dispatch(fetchCardsFailure(errMessage));
+      });
+  };
+};
+
+/**
+ * @param newCard
+ * Add card to DB
+ */
+
+export const addCardDB = (newCard: ICard) => {
+  return (dispatch: any) => {
+    // db add
+    axios
+      .post("/api/v1/cards", newCard)
+      .then(response => {
+        dispatch(addCard(response.data.data));
+      })
+      .catch(error => {
+        const errMessage = error.message;
+        dispatch(fetchCardsFailure(errMessage));
+      });
+  };
+};
+
+/**
+ * Just Redux Actions
+ * @param newCard
+ */
 export const addCard = (newCard: ICard): Action & AnyAction => {
   return {
     type: ADD_CARD,

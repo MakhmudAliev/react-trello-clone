@@ -30,6 +30,7 @@ export default function (state: ColumnState = initialState, action: Action): Col
       };
     }
     case FETCH_COLUMNS_SUCCESS: {
+      console.log("cols", payload);
       return {
         loading: false,
         error: "",
@@ -54,7 +55,7 @@ export default function (state: ColumnState = initialState, action: Action): Col
 
     case REMOVE_COLUMN: {
       const newState: ColumnState = {
-        columns: state.columns.filter(item => item.id !== payload),
+        columns: state.columns.filter(item => item._id !== payload),
       };
       setCardData(newState, storageColumnsKey);
       return newState;

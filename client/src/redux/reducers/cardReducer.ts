@@ -1,18 +1,53 @@
-import { ADD_CARD, EDIT_CARD, REMOVE_CARD, REMOVE_CARDS, REORDER_COLUMN, storageCardsKey } from "../constants";
+import {
+  ADD_CARD,
+  EDIT_CARD,
+  REMOVE_CARD,
+  REMOVE_CARDS,
+  REORDER_COLUMN,
+  FETCH_CARDS_REQUEST,
+  FETCH_CARDS_FAILURE,
+  FETCH_CARDS_SUCCESS,
+  storageCardsKey,
+} from "../constants";
 import { getCardData, setCardData } from "../../utils";
 import { ICard } from "../../../interface";
 import { Action } from "../actions/cardActions";
 
 export interface CardsState {
   cards: ICard[];
+  loading?: Boolean;
+  error?: String;
 }
 
-const initialState: CardsState = getCardData(storageCardsKey) as CardsState;
+// const initialState: CardsState = getCardData(storageCardsKey) as CardsState;
+const initialState = { cards: [], loading: true };
 
 export default function (state: CardsState = initialState, action: Action): CardsState {
-  const { type, payload } = action as Action & { payload: ICard };
+  const { type, payload } = action as Action & { payload: ICard & ICard[] };
 
   switch (type) {
+    case FETCH_CARDS_REQUEST: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+    case FETCH_CARDS_SUCCESS: {
+      console.log("--", payload);
+      return {
+        loading: false,
+        error: "",
+        cards: [...payload],
+      };
+    }
+    case FETCH_CARDS_FAILURE: {
+      return {
+        loading: false,
+        // error: payload,
+        cards: [],
+      };
+    }
+
     case ADD_CARD: {
       const newState: CardsState = {
         ...state,
@@ -23,14 +58,14 @@ export default function (state: CardsState = initialState, action: Action): Card
     }
     case EDIT_CARD: {
       const newState: CardsState = {
-        cards: state.cards.map(item => (item.id === payload.id ? payload : item)),
+        cards: state.cards.map(item => (item._id === payload._id ? payload : item)),
       };
       setCardData(newState, storageCardsKey);
       return newState;
     }
     case REMOVE_CARD: {
       const newState: CardsState = {
-        cards: state.cards.filter(item => item.id !== payload.id),
+        cards: state.cards.filter(item => item._id !== payload._id),
       };
       setCardData(newState, storageCardsKey);
       return newState;
@@ -56,4 +91,3 @@ export default function (state: CardsState = initialState, action: Action): Card
       return state;
   }
 }
-

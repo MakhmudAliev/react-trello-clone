@@ -4,7 +4,7 @@ import { AppState } from "./redux/store";
 import { connect } from "react-redux";
 import { ICard, IColumn } from "../interface";
 import { AnyAction, Dispatch } from "redux";
-import { Action, addColumn, addColumnDB, reorderColumn, fetchColumns } from "./redux/actions/cardActions";
+import { Action, addColumn, addColumnDB, reorderColumn, fetchColumns, fetchCards } from "./redux/actions/cardActions";
 import AddNewColumn from "./components/AddNewColumn/AddNewColumn";
 import { DragDropContext, Droppable, DraggableLocation, DropResult } from "react-beautiful-dnd";
 import { ThunkDispatch } from "redux-thunk";
@@ -15,6 +15,7 @@ interface Props {
   addColumn?: (newColumn: IColumn) => Action;
   reorderColumn?: (newList: ICard[]) => Action;
   fetchColumns?: () => void;
+  fetchCards?: () => void;
   addColumnDB?: (newColumn: IColumn) => void;
 }
 
@@ -26,27 +27,30 @@ interface IMoveResult {
 const App: React.FC<Props> = ({
   columns = [],
   cards = [],
-  addColumn,
   reorderColumn,
   fetchColumns = () => {},
+  fetchCards = () => {},
   addColumnDB = () => {},
 }): JSX.Element => {
+
+  // local state for DnD 
+  // Array of arrays
   const [state, setState] = useState<any>([]);
-  console.log(columns, cards);
 
   useEffect(() => {
     fetchColumns();
-  }, []);
+    fetchCards();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    // without back end
+    // console.log("state", columns[0].title, cards[0].title);
     const initialState: any = columns.map(column => {
-      return cards.filter(card => card.listId === column.id);
+      return cards.filter(card => card.listId === column._id);
     });
 
     setState(initialState);
-    // console.log("initial-state", initialState);
-  }, [JSON.stringify(cards), JSON.stringify(columns)]);
+    console.log("initialState", initialState, state);
+  }, [JSON.stringify(cards), JSON.stringify(columns)]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // reorder draggable elements ====================================================
 
@@ -75,10 +79,10 @@ const App: React.FC<Props> = ({
     const [removed] = sourceClone.splice(droppableSource.index, 1);
 
     if (!destClone.length) {
-      removed.listId = columns[+droppableDestination.droppableId].id;
+      removed.listId = columns[+droppableDestination.droppableId]._id;
       destClone.push(removed);
     } else {
-      removed.listId = columns[+droppableDestination.droppableId].id;
+      removed.listId = columns[+droppableDestination.droppableId]._id;
       destClone.splice(droppableDestination.index, 0, removed);
     }
 
@@ -168,12 +172,14 @@ const mapDispatchToProps = (
   addColumn: (newColumn: IColumn) => void;
   reorderColumn: (newList: ICard[]) => void;
   fetchColumns: () => void;
+  fetchCards: () => void;
   addColumnDB: (newColumn: IColumn) => void;
 } => {
   return {
     addColumn: (newColumn: IColumn) => dispatch(addColumn(newColumn)) as AnyAction,
     reorderColumn: (newList: ICard[]) => dispatch(reorderColumn(newList)) as AnyAction,
     fetchColumns: () => dispatch(fetchColumns()),
+    fetchCards: () => dispatch(fetchCards()),
     addColumnDB: (newColumn: IColumn) => dispatch(addColumnDB(newColumn)),
   };
 };

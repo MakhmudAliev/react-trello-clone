@@ -11,18 +11,18 @@ interface AddNewCardProps {
 export const AddNewCard: React.FC<AddNewCardProps> = ({ onAddCard, listId }) => {
   const [addFormVisible, setAddFormVisible] = useState<boolean>(false);
   const [newTask, setNewTask] = useState<ICard>({
-    id: "",
+    _id: "",
     listId: "",
     title: "",
   });
 
   const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setNewTask({ id: uuid(), title: event.target.value, listId: listId });
+    setNewTask({ _id: uuid(), title: event.target.value, listId: listId });
   };
 
   const handleButtonClick = () => {
     onAddCard(newTask);
-    setNewTask({ id: "", listId: "", title: "" });
+    setNewTask({ _id: "", listId: "", title: "" });
   };
 
   return (

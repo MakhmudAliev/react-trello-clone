@@ -12,7 +12,7 @@ import ColumnDropdown from "./ColumnDropdown";
 interface ColumnProps {
   cards?: ICard[];
   title?: string;
-  id?: string;
+  _id?: string;
   addCard?: (newCard: ICard) => Action;
   editCard: (editedCard: ICard) => Action;
   removeCard: (cartToRemove: ICard) => Action;
@@ -24,7 +24,7 @@ export const Column: React.FC<ColumnProps> = ({
   cards = [],
   addCard,
   title,
-  id,
+  _id,
   editCard: onEdit,
   removeCard: onRemove,
   removeColumn: onRemoveColumn,
@@ -37,19 +37,23 @@ export const Column: React.FC<ColumnProps> = ({
   };
 
   const columnCards = useMemo(
-    () => cards.filter(card => card.listId === id),
+    () => cards.filter(card => card.listId === _id),
     [cards] // eslint-disable-line react-hooks/exhaustive-deps
   );
+
+  // console.log("columnCards", cards);
 
   return (
     <>
       <div className="column">
         <div className="column-header">
-          <div>{title}</div>
+          <div>
+            {title}
+          </div>
           <div className="column-header__dots" onClick={toggleDropdown}>
             <i className="fas fa-ellipsis-h"></i>
             <ColumnDropdown
-              columnId={id!}
+              columnId={_id!}
               isVisible={dropdownVisible}
               removeCards={onRemoveCards}
               removeColumn={onRemoveColumn}
@@ -58,7 +62,7 @@ export const Column: React.FC<ColumnProps> = ({
         </div>
         <div className="column-body">
           {columnCards!.map((card, index) => (
-            <Draggable key={card.id} draggableId={`${card.id}`} index={index}>
+            <Draggable key={card._id} draggableId={`${card._id}`} index={index}>
               {provided => (
                 <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
                   <Card card={card} editCard={onEdit} removeCard={onRemove} index={index} />
@@ -68,7 +72,7 @@ export const Column: React.FC<ColumnProps> = ({
           ))}
         </div>
 
-        <AddNewCard onAddCard={addCard!} listId={id!} />
+        <AddNewCard onAddCard={addCard!} listId={_id!} />
       </div>
     </>
   );
