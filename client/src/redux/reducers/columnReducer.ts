@@ -30,7 +30,6 @@ export default function (state: ColumnState = initialState, action: Action): Col
       };
     }
     case FETCH_COLUMNS_SUCCESS: {
-      console.log("cols", payload);
       return {
         loading: false,
         error: "",

@@ -136,9 +136,12 @@ export const addCardDB = (newCard: ICard) => {
     axios
       .post("/api/v1/cards", newCard)
       .then(response => {
+        console.log("add card success");
         dispatch(addCard(response.data.data));
       })
       .catch(error => {
+        console.log("add card fail");
+
         const errMessage = error.message;
         dispatch(fetchCardsFailure(errMessage));
       });

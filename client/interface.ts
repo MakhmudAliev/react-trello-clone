@@ -1,10 +1,10 @@
 export interface IColumn {
-  _id: string;
+  _id?: string;
   title: string;
 }
 
 export interface ICard {
-  _id: string;
+  _id?: string;
   title: string;
   listId: string;
   dueDate?: Date;

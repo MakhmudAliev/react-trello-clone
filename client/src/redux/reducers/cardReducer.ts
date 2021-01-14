@@ -20,7 +20,7 @@ export interface CardsState {
 }
 
 // const initialState: CardsState = getCardData(storageCardsKey) as CardsState;
-const initialState = { cards: [], loading: true };
+const initialState = { cards: [], loading: false };
 
 export default function (state: CardsState = initialState, action: Action): CardsState {
   const { type, payload } = action as Action & { payload: ICard & ICard[] };
@@ -33,7 +33,6 @@ export default function (state: CardsState = initialState, action: Action): Card
       };
     }
     case FETCH_CARDS_SUCCESS: {
-      console.log("--", payload);
       return {
         loading: false,
         error: "",
@@ -53,7 +52,7 @@ export default function (state: CardsState = initialState, action: Action): Card
         ...state,
         cards: [...state.cards, payload],
       };
-      setCardData(newState, storageCardsKey);
+      // setCardData(newState, storageCardsKey);
       return newState;
     }
     case EDIT_CARD: {

@@ -79,10 +79,10 @@ const App: React.FC<Props> = ({
     const [removed] = sourceClone.splice(droppableSource.index, 1);
 
     if (!destClone.length) {
-      removed.listId = columns[+droppableDestination.droppableId]._id;
+      removed.listId = columns[+droppableDestination.droppableId]._id!;
       destClone.push(removed);
     } else {
-      removed.listId = columns[+droppableDestination.droppableId]._id;
+      removed.listId = columns[+droppableDestination.droppableId]._id!;
       destClone.splice(droppableDestination.index, 0, removed);
     }
 

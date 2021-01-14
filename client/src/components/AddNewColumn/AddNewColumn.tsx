@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { IColumn } from "../../../interface";
-import { v4 as uuid } from "uuid";
 
 interface AddNewColumnProps {
   onAddColumn: (newColumn: IColumn) => void;
@@ -12,12 +11,12 @@ export const AddNewColumn: React.FC<AddNewColumnProps> = ({ onAddColumn }) => {
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     // setNewColumn({ title: event.target.value, id: uuid() });
-    setNewColumn({ title: event.target.value, _id: uuid() });
+    setNewColumn({ title: event.target.value });
   };
 
   const handleButtonClick = () => {
     onAddColumn(newColumn);
-    setNewColumn({ _id: "", title: "" });
+    setNewColumn({ title: "" });
   };
 
   return (

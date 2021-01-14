@@ -4,7 +4,7 @@ import { Action } from "../../redux/actions/cardActions";
 import { v4 as uuid } from "uuid";
 
 interface AddNewCardProps {
-  onAddCard: (newTask: ICard) => Action;
+  onAddCard: (newTask: ICard) => void;
   listId: string;
 }
 
@@ -17,7 +17,7 @@ export const AddNewCard: React.FC<AddNewCardProps> = ({ onAddCard, listId }) => 
   });
 
   const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setNewTask({ _id: uuid(), title: event.target.value, listId: listId });
+    setNewTask({  title: event.target.value, listId: listId });
   };
 
   const handleButtonClick = () => {

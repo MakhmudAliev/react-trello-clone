@@ -3,17 +3,18 @@ import AddNewCard from "../AddNewCard";
 import { connect } from "react-redux";
 import { ICard } from "../../../interface";
 import { AnyAction, Dispatch } from "redux";
-import { Action, addCard, editCard, removeCard, removeColumn, removeCards } from "../../redux/actions/cardActions";
+import { Action, addCardDB, editCard, removeCard, removeColumn, removeCards } from "../../redux/actions/cardActions";
 import { AppState } from "../../redux/store";
 import Card from "../Сard";
 import { Draggable } from "react-beautiful-dnd";
 import ColumnDropdown from "./ColumnDropdown";
+import { ThunkDispatch } from "redux-thunk";
 
 interface ColumnProps {
   cards?: ICard[];
   title?: string;
   _id?: string;
-  addCard?: (newCard: ICard) => Action;
+  addCardDB?: (newCard: ICard) => void;
   editCard: (editedCard: ICard) => Action;
   removeCard: (cartToRemove: ICard) => Action;
   removeColumn: (columnToRemove: string) => Action;
@@ -22,7 +23,7 @@ interface ColumnProps {
 
 export const Column: React.FC<ColumnProps> = ({
   cards = [],
-  addCard,
+  addCardDB,
   title,
   _id,
   editCard: onEdit,
@@ -47,9 +48,7 @@ export const Column: React.FC<ColumnProps> = ({
     <>
       <div className="column">
         <div className="column-header">
-          <div>
-            {title}
-          </div>
+          <div>{title}</div>
           <div className="column-header__dots" onClick={toggleDropdown}>
             <i className="fas fa-ellipsis-h"></i>
             <ColumnDropdown
@@ -72,7 +71,7 @@ export const Column: React.FC<ColumnProps> = ({
           ))}
         </div>
 
-        <AddNewCard onAddCard={addCard!} listId={_id!} />
+        <AddNewCard onAddCard={addCardDB!} listId={_id!} />
       </div>
     </>
   );
@@ -84,13 +83,14 @@ const mapStateToProps = (state: AppState) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch & ThunkDispatch<any, any, any>) => {
   return {
-    addCard: (newCard: ICard) => dispatch(addCard(newCard)) as AnyAction,
+    // addCard: (newCard: ICard) => dispatch(addCard(newCard)) as AnyAction,
     editCard: (newCard: ICard) => dispatch(editCard(newCard)) as AnyAction,
     removeCard: (newCard: ICard) => dispatch(removeCard(newCard)) as AnyAction,
     removeColumn: (columnToRemove: string) => dispatch(removeColumn(columnToRemove)) as AnyAction,
     removeCards: (listId: string) => dispatch(removeCards(listId)) as AnyAction,
+    addCardDB: (newCard: ICard) => dispatch(addCardDB(newCard)),
   };
 };
 

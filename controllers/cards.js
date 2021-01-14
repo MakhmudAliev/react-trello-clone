@@ -26,6 +26,7 @@ exports.getCards = async (req, res, next) => {
 exports.addCard = async (req, res, next) => {
   try {
     const { title, listId } = req.body;
+
     const card = await Card.create(req.body);
 
     return res.status(201).json({
@@ -33,6 +34,8 @@ exports.addCard = async (req, res, next) => {
       data: card,
     });
   } catch (error) {
+    console.log("server card add fail", error.message);
+
     return res.status(500).json({
       success: false,
       error: "Server error",
