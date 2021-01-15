@@ -5,6 +5,8 @@
 - Creating/editing/removing cards (tasks)
 - Drag-n-drop of cards
 
+<img src='http://insite-174.ru/MakhmudAliev/img/trell-clone-stack.jpg' alt='stack'>
+
 ## Technologies
 - HTML/CSS
 - React (+ useState, useEffect, useMemo hooks)
@@ -14,3 +16,4 @@
 - MpngoDB as a database
 
 ## Screenshot of the application
+<img src='http://insite-174.ru/MakhmudAliev/img/React-Trello.jpg' alt='App screenshot'>
