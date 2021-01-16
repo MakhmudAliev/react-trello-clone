@@ -32,10 +32,9 @@ const App: React.FC<Props> = ({
   fetchCards = () => {},
   addColumnDB = () => {},
 }): JSX.Element => {
-
-  // local state for DnD 
+  // local state for DnD
   // Array of arrays
-  const [state, setState] = useState<any>([]);
+  const [state, setState] = useState<Array<Array<ICard>>>([]);
 
   useEffect(() => {
     fetchColumns();
@@ -43,22 +42,22 @@ const App: React.FC<Props> = ({
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    const initialState: any = columns.map(column => {
+    const initialState: Array<Array<ICard>> = columns.map(column => {
       return cards.filter(card => card.listId === column._id);
     });
 
     setState(initialState);
-    console.log("initialState", initialState, state);
+    // console.log("initialState", initialState, state);
   }, [JSON.stringify(cards), JSON.stringify(columns)]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // reorder draggable elements ====================================================
 
   const reorder = (list: ICard[], startIndex: number, endIndex: number): ICard[] => {
-    console.log("entering reorder func", list, startIndex, endIndex);
+    // console.log("entering reorder func", list, startIndex, endIndex);
     const result = [...list];
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
-    console.log("result of reorder", result);
+    // console.log("result of reorder", result);
     return result;
   };
 
@@ -95,7 +94,7 @@ const App: React.FC<Props> = ({
   const onDragEnd = (reorderColumn: (newList: ICard[]) => Action) => (result: DropResult) => {
     const { source, destination } = result;
 
-    console.log("source, destination", source, destination);
+    // console.log("source, destination", source, destination);
 
     if (!destination) {
       return;
@@ -104,14 +103,14 @@ const App: React.FC<Props> = ({
     const sInd = +source.droppableId; // Source Column Index
     const dInd = +destination.droppableId; // Destination Column Index
 
-    console.log("sInd, dInd, state", sInd, dInd, state);
+    // console.log("sInd, dInd, state", sInd, dInd, state);
 
     if (sInd === dInd) {
       // We drop item in the same Column
       const items = reorder(state[sInd], source.index, destination.index);
       const newState = [...state];
       newState[sInd] = items;
-      console.log("newState to update", newState[sInd]);
+      // console.log("newState to update", newState[sInd]);
       setState(newState);
 
       const stateToRedux = newState.flatMap(item => item);

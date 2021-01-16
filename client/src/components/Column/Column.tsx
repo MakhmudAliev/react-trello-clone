@@ -3,14 +3,7 @@ import AddNewCard from "../AddNewCard";
 import { connect } from "react-redux";
 import { ICard } from "../../../interface";
 import { AnyAction, Dispatch } from "redux";
-import {
-  Action,
-  addCardDB,
-  editCard,
-  removeCardDB,
-  removeColumn,
-  removeCards,
-} from "../../redux/actions/cardActions";
+import { Action, addCardDB, editCard, removeCardDB, removeColumn, removeCards } from "../../redux/actions/cardActions";
 import { AppState } from "../../redux/store";
 import Card from "../Сard";
 import { Draggable } from "react-beautiful-dnd";
@@ -21,7 +14,7 @@ interface ColumnProps {
   cards?: ICard[];
   title?: string;
   _id?: string;
-  addCardDB?: (newCard: ICard) => void;
+  addCardDB: (newCard: ICard) => void;
   editCard: (editedCard: ICard) => Action;
   removeCardDB?: (cardToRemove: ICard) => void;
   removeColumn: (columnToRemove: string) => Action;
@@ -30,7 +23,7 @@ interface ColumnProps {
 
 export const Column: React.FC<ColumnProps> = ({
   cards = [],
-  addCardDB,
+  addCardDB = () => {},
   removeCardDB: onRemove,
   title,
   _id,
@@ -76,7 +69,7 @@ export const Column: React.FC<ColumnProps> = ({
           ))}
         </div>
 
-        <AddNewCard onAddCard={addCardDB!} listId={_id!} />
+        <AddNewCard onAddCard={addCardDB} listId={_id!} />
       </div>
     </>
   );

@@ -139,7 +139,6 @@ export const addCardDB = (newCard: ICard) => {
       })
       .catch(error => {
         console.log("add card fail");
-
         const errMessage = error.message;
         dispatch(fetchCardsFailure(errMessage));
       });
@@ -148,7 +147,12 @@ export const addCardDB = (newCard: ICard) => {
 
 export const editCardDB = (editedCard: ICard) => {
   return (dispatch: any) => {
-    axios.post("/api/v1/cards", editedCard);
+    axios
+      .post(`/api/v1/cards/${editedCard._id}`, { data: { title: editedCard.title } })
+      .then(() => {
+        dispatch(editCard(editedCard));
+      })
+      .catch(err => console.log(err.message));
   };
 };
 
@@ -157,7 +161,7 @@ export const removeCardDB = (cardToRemove: ICard) => {
     console.log("card to delete", cardToRemove._id);
     axios
       .delete(`/api/v1/cards/${cardToRemove._id}`)
-      .then(response => {
+      .then(() => {
         console.log("deleting card from DB");
         dispatch(removeCard(cardToRemove));
       })

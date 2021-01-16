@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, SyntheticEvent } from "react";
 import { Action } from "../../../redux/actions/cardActions";
 
 interface ColumnDropdownProps {
@@ -15,26 +15,30 @@ export const ColumnDropdown: React.FC<ColumnDropdownProps> = ({ columnId, isVisi
     setVisible(isVisible);
   }, [isVisible]);
 
-  const handleClick = (): void => {
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>): void => {
+    e.preventDefault();
     setVisible(false);
   };
 
-  const handleRemove = (id: string): void => {
-    removeColumn(id);
-    removeCards(id);
+  const handleRemove = (id: string): any => {
+    return (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+      e.preventDefault();
+      removeColumn(id);
+      removeCards(id);
+    };
   };
 
   return (
     <>
       {visible && (
         <div className="column-dropdown">
-          <a href="#" className="dropdown-close" onClick={handleClick}>
+          <a href="/" className="dropdown-close" onClick={handleClick}>
             x
           </a>
-          <a href="#" onClick={() => handleRemove(columnId)}>
+          <a href="/" onClick={handleRemove(columnId)}>
             Remove list
           </a>
-          <a href="#">Edit list name</a>
+          <a href="/">Edit list name</a>
         </div>
       )}
     </>

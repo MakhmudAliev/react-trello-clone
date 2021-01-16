@@ -15,7 +15,7 @@ export const AddNewCard: React.FC<AddNewCardProps> = ({ onAddCard, listId }) => 
   });
 
   const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setNewTask({  title: event.target.value, listId: listId });
+    setNewTask({ _id: "", title: event.target.value, listId: listId });
   };
 
   const handleButtonClick = () => {

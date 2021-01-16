@@ -48,7 +48,9 @@ exports.addCard = async (req, res, next) => {
 // @access  Public
 exports.editCard = async (req, res, next) => {
   try {
-    const card = await Card.findById(req.params.id);
+    console.log("req.params.id, req.body", req.params.id, req.body);
+    const card = await Card.findByIdAndUpdate(req.params.id, req.body);
+    // const editedCard = req.body;
 
     if (!card) {
       return res.status(404).json({
@@ -56,8 +58,10 @@ exports.editCard = async (req, res, next) => {
         error: "No card found",
       });
     }
-    // NOT FINISHED
-    await card.update(req.params);
+    return res.status(200).json({
+      success: true,
+      data: req.body,
+    });
   } catch (error) {
     console.log("edit card error", error.message);
     return res.status(500).json({
@@ -72,7 +76,7 @@ exports.editCard = async (req, res, next) => {
 // @access  Public
 exports.deleteCard = async (req, res, next) => {
   try {
-    const card = await Card.findById(req.params.id);
+    const card = await Card.findByIdAndRemove(req.params.id);
     console.log("req.params", req.params);
     if (!card) {
       return res.status(404).json({
@@ -80,8 +84,6 @@ exports.deleteCard = async (req, res, next) => {
         error: "No card found",
       });
     }
-
-    await card.remove();
 
     return res.status(200).json({
       success: true,
