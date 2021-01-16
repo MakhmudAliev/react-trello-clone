@@ -7,10 +7,10 @@ interface CardProps {
   card: ICard;
   index: number;
   editCard: (editedCard: ICard) => Action;
-  removeCard: (cardToRemove: ICard) => Action;
+  removeCardDB: (cardToRemove: ICard) => void
 }
 
-const Card: React.FC<CardProps> = ({ card, index, editCard, removeCard }) => {
+const Card: React.FC<CardProps> = ({ card, removeCardDB, editCard }) => {
   const [editMode, setEditMode] = useState<boolean>(false);
 
   const showCard = () => {
@@ -25,7 +25,7 @@ const Card: React.FC<CardProps> = ({ card, index, editCard, removeCard }) => {
             <div className="priority-orange"></div>
             <div className="priority-green"></div>
           </div>
-          <div className="card-title">{card.title} - {index}</div>
+          <div className="card-title">{card.title}</div>
           <div className="card-info">
             <div className="card-info__due-date due-date-red">
               <i className="far fa-clock"></i> 4 nov 2020
@@ -37,7 +37,7 @@ const Card: React.FC<CardProps> = ({ card, index, editCard, removeCard }) => {
           <i className="fas fa-edit" onClick={() => setEditMode(true)}></i>
         </div>
       ) : (
-        <EditCard card={card} showCard={showCard} editCard={editCard} removeCard={removeCard} />
+        <EditCard card={card} showCard={showCard} editCard={editCard} removeCardDB={removeCardDB} />
       )}
     </>
   );

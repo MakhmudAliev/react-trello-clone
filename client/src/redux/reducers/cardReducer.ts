@@ -9,7 +9,7 @@ import {
   FETCH_CARDS_SUCCESS,
   storageCardsKey,
 } from "../constants";
-import { getCardData, setCardData } from "../../utils";
+import { setCardData } from "../../utils";
 import { ICard } from "../../../interface";
 import { Action } from "../actions/cardActions";
 

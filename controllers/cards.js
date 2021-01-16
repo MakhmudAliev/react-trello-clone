@@ -43,13 +43,37 @@ exports.addCard = async (req, res, next) => {
   }
 };
 
+// @desc    Edit card
+// @route   POST /api/v1/cards/:id
+// @access  Public
+exports.editCard = async (req, res, next) => {
+  try {
+    const card = await Card.findById(req.params.id);
+
+    if (!card) {
+      return res.status(404).json({
+        success: false,
+        error: "No card found",
+      });
+    }
+    // NOT FINISHED
+    await card.update(req.params);
+  } catch (error) {
+    console.log("edit card error", error.message);
+    return res.status(500).json({
+      success: false,
+      error: "Server error",
+    });
+  }
+};
+
 // @desc    Delete card
 // @route   GET /api/v1/cards/:id
 // @access  Public
 exports.deleteCard = async (req, res, next) => {
   try {
     const card = await Card.findById(req.params.id);
-
+    console.log("req.params", req.params);
     if (!card) {
       return res.status(404).json({
         success: false,

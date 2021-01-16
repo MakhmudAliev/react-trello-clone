@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { ICard } from "../../../interface";
-import { Action } from "../../redux/actions/cardActions";
-import { v4 as uuid } from "uuid";
 
 interface AddNewCardProps {
   onAddCard: (newTask: ICard) => void;

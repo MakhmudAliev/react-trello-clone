@@ -114,8 +114,6 @@ export const fetchCards = () => {
       .get("/api/v1/cards")
       .then(response => {
         const cards = response.data.data;
-        console.log("cards", cards);
-
         dispatch(fetchCardsSuccess(cards));
       })
       .catch(error => {
@@ -144,6 +142,27 @@ export const addCardDB = (newCard: ICard) => {
 
         const errMessage = error.message;
         dispatch(fetchCardsFailure(errMessage));
+      });
+  };
+};
+
+export const editCardDB = (editedCard: ICard) => {
+  return (dispatch: any) => {
+    axios.post("/api/v1/cards", editedCard);
+  };
+};
+
+export const removeCardDB = (cardToRemove: ICard) => {
+  return (dispatch: any) => {
+    console.log("card to delete", cardToRemove._id);
+    axios
+      .delete(`/api/v1/cards/${cardToRemove._id}`)
+      .then(response => {
+        console.log("deleting card from DB");
+        dispatch(removeCard(cardToRemove));
+      })
+      .catch(error => {
+        console.log("removing card fail", error.message);
       });
   };
 };

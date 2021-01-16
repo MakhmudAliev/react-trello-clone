@@ -3,7 +3,14 @@ import AddNewCard from "../AddNewCard";
 import { connect } from "react-redux";
 import { ICard } from "../../../interface";
 import { AnyAction, Dispatch } from "redux";
-import { Action, addCardDB, editCard, removeCard, removeColumn, removeCards } from "../../redux/actions/cardActions";
+import {
+  Action,
+  addCardDB,
+  editCard,
+  removeCardDB,
+  removeColumn,
+  removeCards,
+} from "../../redux/actions/cardActions";
 import { AppState } from "../../redux/store";
 import Card from "../Сard";
 import { Draggable } from "react-beautiful-dnd";
@@ -16,7 +23,7 @@ interface ColumnProps {
   _id?: string;
   addCardDB?: (newCard: ICard) => void;
   editCard: (editedCard: ICard) => Action;
-  removeCard: (cartToRemove: ICard) => Action;
+  removeCardDB?: (cardToRemove: ICard) => void;
   removeColumn: (columnToRemove: string) => Action;
   removeCards: (listId: string) => Action;
 }
@@ -24,10 +31,10 @@ interface ColumnProps {
 export const Column: React.FC<ColumnProps> = ({
   cards = [],
   addCardDB,
+  removeCardDB: onRemove,
   title,
   _id,
   editCard: onEdit,
-  removeCard: onRemove,
   removeColumn: onRemoveColumn,
   removeCards: onRemoveCards,
 }) => {
@@ -41,8 +48,6 @@ export const Column: React.FC<ColumnProps> = ({
     () => cards.filter(card => card.listId === _id),
     [cards] // eslint-disable-line react-hooks/exhaustive-deps
   );
-
-  // console.log("columnCards", cards);
 
   return (
     <>
@@ -64,7 +69,7 @@ export const Column: React.FC<ColumnProps> = ({
             <Draggable key={card._id} draggableId={`${card._id}`} index={index}>
               {provided => (
                 <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-                  <Card card={card} editCard={onEdit} removeCard={onRemove} index={index} />
+                  <Card card={card} editCard={onEdit} removeCardDB={onRemove!} index={index} />
                 </div>
               )}
             </Draggable>
@@ -85,12 +90,11 @@ const mapStateToProps = (state: AppState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch & ThunkDispatch<any, any, any>) => {
   return {
-    // addCard: (newCard: ICard) => dispatch(addCard(newCard)) as AnyAction,
     editCard: (newCard: ICard) => dispatch(editCard(newCard)) as AnyAction,
-    removeCard: (newCard: ICard) => dispatch(removeCard(newCard)) as AnyAction,
     removeColumn: (columnToRemove: string) => dispatch(removeColumn(columnToRemove)) as AnyAction,
     removeCards: (listId: string) => dispatch(removeCards(listId)) as AnyAction,
     addCardDB: (newCard: ICard) => dispatch(addCardDB(newCard)),
+    removeCardDB: (cardToRemove: ICard) => dispatch(removeCardDB(cardToRemove)),
   };
 };
 

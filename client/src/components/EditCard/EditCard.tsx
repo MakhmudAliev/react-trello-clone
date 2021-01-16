@@ -6,15 +6,10 @@ type EditCardProps = {
   card: ICard;
   showCard: () => void;
   editCard: (editedCard: ICard) => Action;
-  removeCard: (cardToRemove: ICard) => Action;
+  removeCardDB: (cardToRemove: ICard) => void;
 };
 
-export const EditCard: React.FC<EditCardProps> = ({
-  card,
-  showCard,
-  editCard,
-  removeCard,
-}) => {
+export const EditCard: React.FC<EditCardProps> = ({ card, showCard, editCard, removeCardDB }) => {
   const [editedCard, setEditedCard] = useState(card.title);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -27,7 +22,7 @@ export const EditCard: React.FC<EditCardProps> = ({
   };
 
   const handleRemove = () => {
-    removeCard({ ...card });
+    removeCardDB({ ...card });
     showCard();
   };
 

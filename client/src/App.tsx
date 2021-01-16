@@ -43,7 +43,6 @@ const App: React.FC<Props> = ({
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    // console.log("state", columns[0].title, cards[0].title);
     const initialState: any = columns.map(column => {
       return cards.filter(card => card.listId === column._id);
     });
