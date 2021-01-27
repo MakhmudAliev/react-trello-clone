@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { ICard } from "../../../interface";
+import React, { useState } from 'react';
+import { ICard } from '../../../interface';
 
 interface AddNewCardProps {
   onAddCard: (newTask: ICard) => void;
@@ -9,18 +9,17 @@ interface AddNewCardProps {
 export const AddNewCard: React.FC<AddNewCardProps> = ({ onAddCard, listId }) => {
   const [addFormVisible, setAddFormVisible] = useState<boolean>(false);
   const [newTask, setNewTask] = useState<ICard>({
-    _id: "",
-    listId: "",
-    title: "",
+    listId: '',
+    title: '',
   });
 
   const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setNewTask({ _id: "", title: event.target.value, listId: listId });
+    setNewTask({ title: event.target.value, listId: listId });
   };
 
   const handleButtonClick = () => {
     onAddCard(newTask);
-    setNewTask({ _id: "", listId: "", title: "" });
+    setNewTask({ listId: '', title: '' });
   };
 
   return (

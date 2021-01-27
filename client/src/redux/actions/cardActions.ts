@@ -12,10 +12,10 @@ import {
   FETCH_CARDS_REQUEST,
   FETCH_CARDS_SUCCESS,
   FETCH_CARDS_FAILURE,
-} from "../constants";
-import { ICard, IColumn } from "../../../interface";
-import { AnyAction } from "redux";
-import axios from "axios";
+} from '../constants';
+import { ICard, IColumn } from '../../../interface';
+import { AnyAction } from 'redux';
+import axios from 'axios';
 
 export type Action = {
   type: string;
@@ -50,12 +50,12 @@ export const fetchColumns = () => {
   return (dispatch: any) => {
     dispatch(fetchColumnsRequest());
     axios
-      .get("/api/v1/columns")
-      .then(response => {
+      .get('/api/v1/columns')
+      .then((response) => {
         const columns = response.data.data;
         dispatch(fetchColumnsSuccess(columns));
       })
-      .catch(error => {
+      .catch((error) => {
         const errMessage = error.message;
         dispatch(fetchColumnsFailure(errMessage));
       });
@@ -71,11 +71,11 @@ export const addColumnDB = (newColumn: IColumn) => {
   return (dispatch: any) => {
     // db add
     axios
-      .post("/api/v1/columns", newColumn)
-      .then(response => {
+      .post('/api/v1/columns', newColumn)
+      .then((response) => {
         dispatch(addColumn(response.data.data));
       })
-      .catch(error => {
+      .catch((error) => {
         const errMessage = error.message;
         dispatch(fetchColumnsFailure(errMessage));
       });
@@ -111,12 +111,12 @@ export const fetchCards = () => {
   return (dispatch: any) => {
     dispatch(fetchCardsRequest());
     axios
-      .get("/api/v1/cards")
-      .then(response => {
+      .get('/api/v1/cards')
+      .then((response) => {
         const cards = response.data.data;
         dispatch(fetchCardsSuccess(cards));
       })
-      .catch(error => {
+      .catch((error) => {
         const errMessage = error.message;
         dispatch(fetchCardsFailure(errMessage));
       });
@@ -131,14 +131,15 @@ export const fetchCards = () => {
 export const addCardDB = (newCard: ICard) => {
   return (dispatch: any) => {
     // db add
+    console.log('add card', newCard);
     axios
-      .post("/api/v1/cards", newCard)
-      .then(response => {
-        console.log("add card success");
+      .post('/api/v1/cards', newCard)
+      .then((response) => {
+        console.log('add card success');
         dispatch(addCard(response.data.data));
       })
-      .catch(error => {
-        console.log("add card fail");
+      .catch((error) => {
+        console.log('add card fail');
         const errMessage = error.message;
         dispatch(fetchCardsFailure(errMessage));
       });
@@ -152,21 +153,21 @@ export const editCardDB = (editedCard: ICard) => {
       .then(() => {
         dispatch(editCard(editedCard));
       })
-      .catch(err => console.log(err.message));
+      .catch((err) => console.log(err.message));
   };
 };
 
 export const removeCardDB = (cardToRemove: ICard) => {
   return (dispatch: any) => {
-    console.log("card to delete", cardToRemove._id);
+    console.log('card to delete', cardToRemove._id);
     axios
       .delete(`/api/v1/cards/${cardToRemove._id}`)
       .then(() => {
-        console.log("deleting card from DB");
+        console.log('deleting card from DB');
         dispatch(removeCard(cardToRemove));
       })
-      .catch(error => {
-        console.log("removing card fail", error.message);
+      .catch((error) => {
+        console.log('removing card fail', error.message);
       });
   };
 };

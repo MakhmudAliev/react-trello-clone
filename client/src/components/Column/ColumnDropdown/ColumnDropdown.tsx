@@ -1,5 +1,5 @@
-import React, { useState, useEffect, SyntheticEvent } from "react";
-import { Action } from "../../../redux/actions/cardActions";
+import React, { useState, useEffect } from 'react';
+import { Action } from '../../../redux/actions/cardActions';
 
 interface ColumnDropdownProps {
   columnId: string;
